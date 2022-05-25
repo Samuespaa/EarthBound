@@ -1,0 +1,84 @@
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 1234px;
+  height: 1080px;
+  background-color: var(--initial-home-background);
+  animation-name: backgroundColor;
+  animation-duration: 9s;
+  animation-fill-mode: forwards;
+  &-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 1s;
+    animation-delay: 14.5s;
+    animation-fill-mode: forwards;
+    z-index: 1;
+  }
+  &-content {
+    position: relative;
+    right: 0.187rem;
+    bottom: 3.25rem;
+    &-logo {
+      animation-name: logoFlash;
+      animation-duration: 2.5s;
+      animation-delay: 8.75s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+  }
+  &-credits {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    bottom: 3.875rem;
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 3.5s;
+    animation-delay: 5.5s;
+    animation-fill-mode: forwards;
+    &-text {
+      margin: 0;
+      color: var(--intro-text-color);
+      font-size: 3.187rem;
+      font-family: 'Josefin Sans';
+      line-height: .9;
+      opacity: .75;
+    }
+  }
+}
+
+@keyframes backgroundColor {
+  40% {
+    background-color: var(--initial-home-background);
+  }
+  41% {
+    background-color: var(--flash-home-background);
+  }
+  42% {
+    background-color: var(--initial-home-background);
+  }
+  62% {
+    background-color: var(--initial-home-background);
+  }
+  100% {
+    background-color: var(--final-home-background);
+  }
+}
+
+@keyframes logoFlash {
+  75% {
+    filter: drop-shadow(0px 0px 2rem #f6f274) drop-shadow(0px 0px 3rem #f6f274);
+  }
+  100% {
+    filter: drop-shadow(0px 0px 1rem #f6f274) drop-shadow(0px 0px 3rem #f6f274);
+  }
+}

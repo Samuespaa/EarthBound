@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BattleComponent } from './battle/battle.component';
+import { LoadingComponent } from './loading/loading.component';
 import { HomeComponent } from './home/home.component';
+import { BattleComponent } from './battle/battle.component';
 
 const routes: Routes = [
-  {path: "home", component: HomeComponent},
-  {path: "battle", component: BattleComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: '**', redirectTo: 'home', pathMatch: 'full'}
+  {path: 'loading', component: LoadingComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'battle', component: BattleComponent},
+  {path: '', redirectTo: 'loading', pathMatch: 'full'},
+  {path: '**', redirectTo: 'loading', pathMatch: 'full'}
 ];
 
 @NgModule({
