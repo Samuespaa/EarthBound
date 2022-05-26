@@ -40,7 +40,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
     Utils.calculateTextSize();
   }
 
-  @HostListener('window:keypress') navigateTo() {
+  @HostListener('window:keyup') navigateTo() {
     if (this.ready) {
       document.documentElement.requestFullscreen();
       Utils.navigateTo(this.router, 'home');

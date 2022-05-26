@@ -1,0 +1,13 @@
+<div class="selection-dialog">
+  <div class="selection-dialog-description" *ngIf="text">
+    <span class="selection-dialog-description-text">{{text}}</span>
+  </div>
+  <div class="selection-dialog-options">
+    <div class="selection-dialog-options-option" *ngFor="let option of options; let i = index">
+      <div class="selection-dialog-options-option-cursor">
+        <img class="selection-dialog-options-option-cursor-image" *ngIf="hoverIndex === i" src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png">
+      </div>
+      <span class="selection-dialog-options-option-text">{{option}}</span>
+    </div>
+  </div>
+</div>

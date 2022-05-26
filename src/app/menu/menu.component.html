@@ -1,5 +1,10 @@
 <div class="menu">
   <div class="menu-overlay"></div>
-  <p>menu works!</p>
+  <div class="menu-load">
+    <app-selection-dialog [options]="saves" (optionSelected)="manageOptionSelected($event)"></app-selection-dialog>
+  </div>
+  <div class="menu-text-speed">
+    <app-selection-dialog *ngIf="false" text="Please select text speed." [options]="speeds" [focus]="false"></app-selection-dialog>
+  </div>
 </div>
 

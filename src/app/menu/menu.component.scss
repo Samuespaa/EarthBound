@@ -6,8 +6,8 @@
   overflow: hidden;
   background-color: #6baede;
   background-image: repeating-linear-gradient(45deg, #84df94 25%, transparent 25%, transparent 75%, #84df94 75%, #84df94),repeating-linear-gradient(45deg, #84df94 25%, transparent 25%, transparent 75%, #84df94 75%, #84df94);
-  background-position: 0 0, 38px 38px;
-  background-size: calc(2 * 38px) calc(2 * 38px);
+  background-position: 0 0, 2.374rem 2.374rem;
+  background-size: calc(2 * 2.375rem) calc(2 * 2.375rem);
   &-overlay {
     position: absolute;
     width: 100%;
@@ -17,5 +17,15 @@
     animation-duration: 1s;
     animation-fill-mode: forwards;
     z-index: 1;
+  }
+  &-load {
+    position: absolute;
+    top: 4.75rem;
+    width: calc(100% - 4.75rem);
+  }
+  &-text-speed {
+    position: absolute;
+    bottom: 10.4375rem;
+    left: 7.125rem;
   }
 }
