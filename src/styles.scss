@@ -29,6 +29,7 @@ html {
   font-family: EarthBound;
   font-size: 16px;
   user-select: none;
+  cursor: none;
 }
 
 body {
@@ -48,5 +49,14 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes vanish {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.changeLogo();
     }, 3700);
     this.navigationTimeout = setTimeout(() => {
-      Utils.navigateTo(this.router, 'loading');
+      Utils.navigateTo(this.router, 'menu');
     }, 16000);
   }
 
