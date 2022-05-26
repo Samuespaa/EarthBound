@@ -17,6 +17,9 @@
 }
 
 html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   overflow: hidden;
   width: 100%;
@@ -24,6 +27,7 @@ html {
   background-color: var(--background);
   color: var(--text-color);
   font-family: EarthBound;
+  font-size: 16px;
   user-select: none;
 }
 
