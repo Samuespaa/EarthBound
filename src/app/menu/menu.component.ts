@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../shared/utils';
 
 @Component({
@@ -11,19 +12,26 @@ export class MenuComponent implements OnInit, OnDestroy {
   public saves: string[] = [];
   public speeds: string[] = [];
 
-  constructor(private element: ElementRef) {
+  constructor(
+    private element: ElementRef,
+    private translate: TranslateService
+  ) {
     this.music.loop = true;
     this.music.play();
-    this.saves.push(
-      '1: Samu Level: 48 Text Speed: Fast',
-      '2: Start New Game',
-      '3: Start New Game'
-    );
-    this.speeds.push(
-      'Fast',
-      'Medium',
-      'Slow'
-    );
+    this.translate.get('menu.load.newGame').subscribe(translation => {
+      this.saves.push(
+        '1: Samu Level: 48 Text Speed: Fast',
+        `2: ${translation}`,
+        `3: ${translation}`
+      );
+    });
+    this.translate.get(['menu.textSpeed.fast', 'menu.textSpeed.medium', 'menu.textSpeed.slow']).subscribe(translations => {
+      this.speeds.push(
+        translations['menu.textSpeed.fast'],
+        translations['menu.textSpeed.medium'],
+        translations['menu.textSpeed.slow'],
+      );
+    });
   }
 
   ngOnInit(): void {

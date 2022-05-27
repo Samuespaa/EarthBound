@@ -1,0 +1,20 @@
+{
+  "loading": {
+    "loading": "Cargando",
+    "ready": "Listo"
+  },
+  "menu": {
+    "load": {
+      "newGame": "Comenzar Nueva Partida"
+    },
+    "textSpeed": {
+      "fast": "Ligera",
+      "medium": "Media",
+      "slow": "Lenta",
+      "title": "Por Favor, Elija Velocidad De Texto"
+    }
+  },
+  "battle": {
+
+  }
+}

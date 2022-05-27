@@ -1,0 +1,20 @@
+{
+  "loading": {
+    "loading": "Loading",
+    "ready": "Ready"
+  },
+  "menu": {
+    "load": {
+      "newGame": "Start New Game"
+    },
+    "textSpeed": {
+      "fast": "Fast",
+      "medium": "Medium",
+      "slow": "Slow",
+      "title": "Please Select Text Speed"
+    }
+  },
+  "battle": {
+
+  }
+}

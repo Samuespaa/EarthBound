@@ -4,7 +4,7 @@
     <app-selection-dialog [options]="saves" (optionSelected)="manageOptionSelected($event)"></app-selection-dialog>
   </div>
   <div class="menu-text-speed">
-    <app-selection-dialog *ngIf="false" text="Please select text speed." [options]="speeds" [focus]="false"></app-selection-dialog>
+    <app-selection-dialog *ngIf="true" text="{{'menu.textSpeed.title' | translate}}." [options]="speeds" [focus]="false"></app-selection-dialog>
   </div>
 </div>
 
