@@ -4,8 +4,9 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: #6baede;
-  background-image: repeating-linear-gradient(45deg, #84df94 25%, transparent 25%, transparent 75%, #84df94 75%, #84df94),repeating-linear-gradient(45deg, #84df94 25%, transparent 25%, transparent 75%, #84df94 75%, #84df94);
+  background-color: var(--menu-first-tile-background);
+  background-image: repeating-linear-gradient(45deg, var(--menu-second-tile-background) 25%, transparent 25%, transparent 75%, var(--menu-second-tile-background) 75%, var(--menu-second-tile-background)),
+                    repeating-linear-gradient(45deg, var(--menu-second-tile-background) 25%, transparent 25%, transparent 75%, var(--menu-second-tile-background) 75%, var(--menu-second-tile-background));
   background-position: 0 0, 2.374rem 2.374rem;
   background-size: calc(2 * 2.375rem) calc(2 * 2.375rem);
   &-overlay {

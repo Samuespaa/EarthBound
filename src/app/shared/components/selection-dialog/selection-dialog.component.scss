@@ -24,6 +24,11 @@
           height: 2.5rem;
         }
       }
+      &-text {
+        &.selected {
+          background-color: var(--dialog-option-selected);
+        }
+      }
     }
   }
 }
