@@ -11,7 +11,12 @@
       "fast": "Fast",
       "medium": "Medium",
       "slow": "Slow",
-      "title": "Please Select Text Speed"
+      "title": "Please select text speed"
+    },
+    "difficulty": {
+      "hard": "Dificil",
+      "normal": "Normal",
+      "title": "Please select difficulty"
     }
   },
   "battle": {

@@ -1,10 +1,13 @@
 <div class="menu">
   <div class="menu-overlay"></div>
   <div class="menu-load">
-    <app-selection-dialog [options]="saves" (selected)="manageOptionSelected($event)"></app-selection-dialog>
+    <app-selection-dialog *ngIf="dialogsVisible.load" [config]="loadConfig" [reset]="resetLoad" (selected)="manageLoadSelected($event)"></app-selection-dialog>
   </div>
   <div class="menu-text-speed">
-    <app-selection-dialog *ngIf="true" text="{{'menu.textSpeed.title' | translate}}." [options]="speeds" [focus]="false"></app-selection-dialog>
+    <app-selection-dialog *ngIf="dialogsVisible.speed" [config]="speedConfig" [reset]="resetSpeed" (selected)="manageSpeedSelected($event)" (canceled)="cancelSpeedSelection()"></app-selection-dialog>
+  </div>
+  <div class="menu-difficulty">
+    <app-selection-dialog *ngIf="dialogsVisible.difficulty" [config]="difficultyConfig" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
   </div>
 </div>
 

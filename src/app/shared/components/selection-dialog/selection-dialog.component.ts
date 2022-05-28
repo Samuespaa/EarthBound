@@ -1,15 +1,16 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { DialogOption } from '../../models/dialog-option';
+import { SelectionDialogConfig } from '../../models/selection-dialog-config';
 
 @Component({
   selector: 'app-selection-dialog',
   templateUrl: './selection-dialog.component.html',
   styleUrls: ['./selection-dialog.component.scss']
 })
-export class SelectionDialogComponent implements OnInit, OnDestroy {
-  @Input() text: string = '';
-  @Input() options: string[] = [];
-  @Input() focus: boolean = true;
-  @Output() selected: EventEmitter<string> = new EventEmitter<string>();
+export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() config: SelectionDialogConfig = new SelectionDialogConfig();
+  @Input() reset: boolean = false;
+  @Output() selected: EventEmitter<DialogOption> = new EventEmitter<DialogOption>();
   @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
   public hoverIndex: number = 0;
   public optionSelected: number = -1;
@@ -28,14 +29,24 @@ export class SelectionDialogComponent implements OnInit, OnDestroy {
     }, 166);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.searchDefaultOption();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const property in changes) {
+      if (changes[property].currentValue) {
+        this.resetDialog();
+      }
+    }
+  }
 
   ngOnDestroy(): void {
     clearInterval(this.cursorInterval);
   }
 
   @HostListener('window:keyup') optionsHandler() {
-    if (this.focus) {
+    if (this.config.focus) {
       switch ((event as KeyboardEvent).code) {
         case 'ArrowUp':
         case 'KeyW':
@@ -71,17 +82,28 @@ export class SelectionDialogComponent implements OnInit, OnDestroy {
     this.cursorSprite === 1 ? this.cursorSprite++ : this.cursorSprite--;
   }
 
+  searchDefaultOption() {
+    this.hoverIndex = this.config.options.findIndex(option => option.value === this.config.defaultOption.value);
+    if (this.hoverIndex === -1) {
+      this.hoverIndex = 0;
+    }
+  }
+
+  resetDialog() {
+    this.optionSelected = -1;
+  }
+
   manageHoverOption(up: boolean) {
     if (up) {
       if (this.hoverIndex) {
         this.hoverIndex--;
       }
       else {
-        this.hoverIndex = this.options.length - 1;
+        this.hoverIndex = this.config.options.length - 1;
       }
     }
     else {
-      if (this.hoverIndex < this.options.length - 1) {
+      if (this.hoverIndex < this.config.options.length - 1) {
         this.hoverIndex++;
       }
       else {
@@ -92,7 +114,7 @@ export class SelectionDialogComponent implements OnInit, OnDestroy {
 
   selectOption() {
     this.optionSelected = this.hoverIndex;
-    this.selected.emit(this.options[this.optionSelected]);
+    this.selected.emit(this.config.options[this.optionSelected]);
   }
 
   cancel() {

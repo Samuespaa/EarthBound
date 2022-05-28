@@ -8,10 +8,15 @@
       "newGame": "Comenzar Nueva Partida"
     },
     "textSpeed": {
-      "fast": "Ligera",
+      "fast": "Rapida",
       "medium": "Media",
       "slow": "Lenta",
-      "title": "Por Favor, Elije Velocidad De Texto"
+      "title": "Por favor, elige velocidad de texto"
+    },
+    "difficulty": {
+      "hard": "Dificil",
+      "normal": "Normal",
+      "title": "Por favor, elige dificultad"
     }
   },
   "battle": {

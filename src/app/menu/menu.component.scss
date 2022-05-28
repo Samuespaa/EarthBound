@@ -26,7 +26,13 @@
   }
   &-text-speed {
     position: absolute;
-    bottom: 10.4375rem;
+    top: 33.25rem;
     left: 7.125rem;
+    width: 38rem;
+  }
+  &-difficulty {
+    position: absolute;
+    top: 35.625rem;
+    left: 19.125rem;
   }
 }
