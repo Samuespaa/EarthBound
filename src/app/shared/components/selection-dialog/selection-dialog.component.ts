@@ -19,6 +19,7 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
   private cursorInterval: NodeJS.Timeout;
 
   constructor() {
+    //*Mirar unificar sonidos en una clase
     this.cursorSounds = {
       vertical: new Audio('../../../assets/sounds/cursor-vertical.wav'),
       accept: new Audio('../../../assets/sounds/accept.wav'),
@@ -71,6 +72,7 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
           this.selectOption();
           break;
         case 'Escape':
+        case 'Backspace':
         case 'KeyX':
           this.cursorSounds.back.play();
           this.cancel();
