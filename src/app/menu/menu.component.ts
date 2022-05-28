@@ -4,6 +4,7 @@ import { DialogOption } from '../shared/models/dialog-option';
 import { MenuConfig } from '../shared/models/menu-config';
 import { SelectionDialogConfig } from '../shared/models/selection-dialog-config';
 import { Utils } from '../shared/utils';
+import { MUSICS } from '../shared/constants/musics';
 
 @Component({
   selector: 'app-menu',
@@ -11,21 +12,21 @@ import { Utils } from '../shared/utils';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
-  private music: HTMLAudioElement = new Audio('../../assets/musics/choose-a-file.mp3');
   private menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetLoad: boolean = false;
   public speedConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetSpeed: boolean = false;
   public difficultyConfig: SelectionDialogConfig = new SelectionDialogConfig();
+  public resetDifficulty: boolean = false;
   public dialogsVisible: any;
 
   constructor(
     private element: ElementRef,
     private translate: TranslateService
   ) {
-    this.music.loop = true;
-    this.music.play();
+    MUSICS.menu.loop = true;
+    MUSICS.menu.play();
     this.translate.get('menu.load.newGame').subscribe(translation => {
       this.loadConfig.options = [
         new DialogOption('1', `1: ${translation}`),
@@ -62,7 +63,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.music.pause();
+    MUSICS.menu.pause();
   }
 
   @HostListener('window:resize') calculateSizes() {

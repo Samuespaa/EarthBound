@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { MUSICS } from '../shared/constants/musics';
 import { Utils } from '../shared/utils';
 
 @Component({
@@ -8,7 +9,6 @@ import { Utils } from '../shared/utils';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private music: HTMLAudioElement = new Audio('../../assets/musics/title-screen.mp3');
   private logoTimeout: NodeJS.Timeout;
   private navigationTimeout: NodeJS.Timeout;
 
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private router: Router
   ) {
-    this.music.play();
+    MUSICS.home.play();
     this.logoTimeout = setTimeout(() => {
       this.changeLogo();
     }, 3700);
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.logoTimeout);
     clearTimeout(this.navigationTimeout);
-    this.music.pause();
+    MUSICS.home.pause();
   }
 
   @HostListener('window:resize') calculateSizes() {

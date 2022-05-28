@@ -7,7 +7,7 @@
     <app-selection-dialog *ngIf="dialogsVisible.speed" [config]="speedConfig" [reset]="resetSpeed" (selected)="manageSpeedSelected($event)" (canceled)="cancelSpeedSelection()"></app-selection-dialog>
   </div>
   <div class="menu-difficulty">
-    <app-selection-dialog *ngIf="dialogsVisible.difficulty" [config]="difficultyConfig" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
+    <app-selection-dialog *ngIf="dialogsVisible.difficulty" [config]="difficultyConfig" [reset]="resetDifficulty" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DialogOption } from '../../models/dialog-option';
 import { SelectionDialogConfig } from '../../models/selection-dialog-config';
+import { SOUNDS } from '../../constants/sounds';
 
 @Component({
   selector: 'app-selection-dialog',
@@ -15,16 +16,9 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
   public hoverIndex: number = 0;
   public optionSelected: number = -1;
   public cursorSprite: number = 1;
-  private cursorSounds: any;
   private cursorInterval: NodeJS.Timeout;
 
   constructor() {
-    //*Mirar unificar sonidos en una clase
-    this.cursorSounds = {
-      vertical: new Audio('../../../assets/sounds/cursor-vertical.wav'),
-      accept: new Audio('../../../assets/sounds/accept.wav'),
-      back: new Audio('../../../assets/sounds/back.wav')
-    }
     this.cursorInterval = setInterval(() => {
       this.changeLoadingSprite();
     }, 166);
@@ -51,30 +45,30 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
       switch ((event as KeyboardEvent).code) {
         case 'ArrowUp':
         case 'KeyW':
-          this.cursorSounds.vertical.play();
+          SOUNDS.cursorVertical.play();
           this.manageHoverOption(true);
           break;
         case 'ArrowDown':
         case 'KeyS':
-          this.cursorSounds.vertical.play();
+          SOUNDS.cursorVertical.play();
           this.manageHoverOption(false);
           break;
         case 'ArrowRight':
         case 'ArrowLeft':
         case 'KeyD':
         case 'KeyA':
-          this.cursorSounds.back.play();
+          SOUNDS.back.play();
           break;
         case 'Enter':
         case 'Space':
         case 'KeyZ':
-          this.cursorSounds.accept.play();
+          SOUNDS.accept.play();
           this.selectOption();
           break;
         case 'Escape':
         case 'Backspace':
         case 'KeyX':
-          this.cursorSounds.back.play();
+          SOUNDS.back.play();
           this.cancel();
       }
     }
