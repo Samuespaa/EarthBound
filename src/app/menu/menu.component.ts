@@ -5,6 +5,7 @@ import { MenuConfig } from '../shared/models/menu-config';
 import { SelectionDialogConfig } from '../shared/models/selection-dialog-config';
 import { Utils } from '../shared/utils';
 import { MUSICS } from '../shared/constants/musics';
+import { TextConfig } from '../shared/models/text-config';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   public difficultyConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetDifficulty: boolean = false;
   public dialogsVisible: any;
+  public textConfig: TextConfig = new TextConfig(false, true, false, 0);
+  public pruebaText: string = '';
 
   constructor(
     private element: ElementRef,
@@ -54,8 +57,12 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.dialogsVisible = {
       load: true,
       speed: false,
-      difficulty: false
+      difficulty: false,
+      input: false
     }
+    this.translate.get(this.menuConfig.inputs.ness.helpText).subscribe(translation => {
+      this.pruebaText = translation + '.';
+    });
   }
 
   ngOnInit(): void {
@@ -100,6 +107,10 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuConfig.difficulty = difficultySelected;
     this.difficultyConfig.defaultOption = difficultySelected;
     this.difficultyConfig.focus = false;
+    for (const property in this.dialogsVisible) {
+      this.dialogsVisible[property] = false;
+    }
+    this.dialogsVisible.input = true;
   }
 
   cancelDifficultySelection() {
@@ -107,5 +118,9 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.speedConfig.focus = true;
     this.resetSpeed = true;
     this.dialogsVisible.difficulty = false;
+  }
+
+  manageTextFinished() {
+    
   }
 }

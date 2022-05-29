@@ -1,1 +1,15 @@
-<p>text-dialog works!</p>
+<div class="text-dialog">
+  <div class="text-dialog-area">
+    <div class="text-dialog-area-container">
+      <div class="text-dialog-area-container-paragraph" *ngFor="let t of texts">
+        <div class="text-dialog-area-container-paragraph-icon">
+          <span class="text-dialog-area-container-paragraph-icon-text">@</span>
+        </div>
+        <span class="text-dialog-area-container-paragraph-text">{{t}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-dialog-cursor" *ngIf="ready">
+    <img class="text-dialog-cursor-image" src="../../../../assets/images/interface/cursor-down-{{cursorSprite}}.png">
+  </div>
+</div>

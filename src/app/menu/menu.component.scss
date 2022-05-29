@@ -35,4 +35,17 @@
     top: 35.625rem;
     left: 19.125rem;
   }
+  &-character {
+    display: flex;
+    position: absolute;
+    top: 9.5rem;
+    width: calc(100% - 4.75rem);
+    &-image {
+      height: 7.125rem;
+    }
+    &-help {
+      width: 40.375rem;
+      height: 9.5rem;
+    }
+  }
 }

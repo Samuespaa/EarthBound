@@ -7,23 +7,21 @@
   background-color: var(--background);
   &-no-mouse {
     position: absolute;
-    top: 2%;
-    right: 2%;
-    height: 5%;
+    top: 1.5rem;
+    right: 1.5rem;
+    height: 4rem;
   }
   &-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    height: 12.5%;
     &-loading,
     &-ready {
       line-height: 1;
     }
     &-ness {
-      height: 35.6%;
-      max-height: 48px;
+      height: 3rem;
     }
   }
 }

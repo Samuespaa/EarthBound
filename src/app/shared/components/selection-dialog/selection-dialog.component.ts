@@ -9,10 +9,10 @@ import { SOUNDS } from '../../constants/sounds';
   styleUrls: ['./selection-dialog.component.scss']
 })
 export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() config: SelectionDialogConfig = new SelectionDialogConfig();
-  @Input() reset: boolean = false;
-  @Output() selected: EventEmitter<DialogOption> = new EventEmitter<DialogOption>();
-  @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() public config: SelectionDialogConfig = new SelectionDialogConfig();
+  @Input() public reset: boolean = false;
+  @Output() private selected: EventEmitter<DialogOption> = new EventEmitter<DialogOption>();
+  @Output() private canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
   public hoverIndex: number = 0;
   public optionSelected: number = -1;
   public cursorSprite: number = 1;
@@ -30,7 +30,7 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
-      if (changes[property].currentValue) {
+      if (property === 'reset' && changes[property].currentValue) {
         this.resetDialog();
       }
     }

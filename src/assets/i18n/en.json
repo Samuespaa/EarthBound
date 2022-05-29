@@ -17,6 +17,16 @@
       "hard": "Dificil",
       "normal": "Normal",
       "title": "Please select difficulty"
+    },
+    "inputs": {
+      "nessHelpText": "Please name him",
+      "paulaHelpText": "Name her, too",
+      "jeffHelpText": "Name your friend",
+      "pooHelpText": "Name another friend",
+      "favoriteFoodHelpText": "Favorite homemade food?",
+      "coolestThingHelpText": "What's your favorite thing?",
+      "steak": "Steak",
+      "rockin": "Rockin"
     }
   },
   "battle": {
