@@ -1,4 +1,5 @@
 export const MUSICS = {
-  home: new Audio('../../assets/musics/title-screen.mp3'),
-  menu: new Audio('../../assets/musics/choose-a-file.mp3')
+  titleScreen: new Audio('../../assets/musics/title-screen.mp3'),
+  chooseAFile: new Audio('../../assets/musics/choose-a-file.mp3'),
+  yourNamePlease: new Audio('../../assets/musics/your-name-please.mp3')
 }

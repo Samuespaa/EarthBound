@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private router: Router
   ) {
-    MUSICS.home.play();
+    MUSICS.titleScreen.play();
     this.logoTimeout = setTimeout(() => {
       this.changeLogo();
     }, 3700);
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.logoTimeout);
     clearTimeout(this.navigationTimeout);
-    MUSICS.home.pause();
+    MUSICS.titleScreen.pause();
   }
 
   @HostListener('window:resize') calculateSizes() {

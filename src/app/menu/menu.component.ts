@@ -14,7 +14,7 @@ import { InputConfig } from '../shared/models/input-config';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
-  public menuConfig: MenuConfig = new MenuConfig();
+  private menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetLoad: boolean = false;
   public speedConfig: SelectionDialogConfig = new SelectionDialogConfig();
@@ -23,16 +23,17 @@ export class MenuComponent implements OnInit, OnDestroy {
   public resetDifficulty: boolean = false;
   public dialogsVisible: any;
   public textConfig: TextConfig = new TextConfig(false, true, false, 0);
-  public pruebaText: string = '';
+  public helpText: string = '';
   public inputConfig: InputConfig;
   public inputFocus: boolean = false;
+  private inputId: number = 0;
 
   constructor(
     private element: ElementRef,
     private translate: TranslateService
   ) {
-    MUSICS.menu.loop = true;
-    MUSICS.menu.play();
+    MUSICS.chooseAFile.loop = true;
+    MUSICS.chooseAFile.play();
     this.translate.get('menu.load.newGame').subscribe(translation => {
       this.loadConfig.options = [
         new DialogOption('1', `1: ${translation}`),
@@ -63,10 +64,10 @@ export class MenuComponent implements OnInit, OnDestroy {
       difficulty: false,
       input: false
     }
-    this.translate.get(this.menuConfig.inputs.ness.helpText).subscribe(translation => {
-      this.pruebaText = translation + '.';
+    this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
+      this.helpText = translation + '.';
     });
-    this.inputConfig = this.menuConfig.inputs.ness.inputConfig;
+    this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
   }
 
   ngOnInit(): void {
@@ -74,7 +75,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    MUSICS.menu.pause();
+    MUSICS.chooseAFile.pause();
   }
 
   @HostListener('window:resize') calculateSizes() {
@@ -108,6 +109,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   manageDifficultySelected(difficultySelected: DialogOption) {
+    MUSICS.chooseAFile.pause();
+    MUSICS.yourNamePlease.loop = true;
+    MUSICS.yourNamePlease.play();
     this.menuConfig.difficulty = difficultySelected;
     this.difficultyConfig.defaultOption = difficultySelected;
     this.difficultyConfig.focus = false;
@@ -130,6 +134,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   manageInputConfirmed(name: string) {
     console.log(name);
+    this.menuConfig.inputs[this.inputId++].inputConfig.value = name;
     this.inputFocus = false;
   }
 }
