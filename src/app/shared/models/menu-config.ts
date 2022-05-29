@@ -1,25 +1,23 @@
 import { DialogOption } from "./dialog-option";
 import { InputConfig } from "./input-config";
 import { MenuConfigInput } from "./menu-config-input";
-import { MenuConfigInputs } from "./menu-config-inputs";
 
 export class MenuConfig {
   private _load: DialogOption;
   private _speed: DialogOption;
   private _difficulty: DialogOption;
-  private _inputs: MenuConfigInputs;
+  private _inputs: MenuConfigInput[] = [];
 
   constructor() {
     this._load = new DialogOption('', '');
     this._speed = new DialogOption('', '');
     this._difficulty = new DialogOption('', '');
-    const ness = new MenuConfigInput(new InputConfig('Ness', 5), 'menu.inputs.nessHelpText');
-    const paula = new MenuConfigInput(new InputConfig('Paula', 5), 'menu.inputs.paulaHelpText');
-    const jeff = new MenuConfigInput(new InputConfig('Jeff', 5), 'menu.inputs.jeffHelpText');
-    const poo = new MenuConfigInput(new InputConfig('Poo', 5), 'menu.inputs.pooHelpText');
-    const favoriteFood = new MenuConfigInput(new InputConfig('menu.inputs.steak', 5), 'menu.inputs.favoriteFoodHelpText');
-    const coolestThing = new MenuConfigInput(new InputConfig('menu.inputs.rockin', 5), 'menu.inputs.coolestThingHelpText');
-    this._inputs = new MenuConfigInputs(ness, paula, jeff, poo, favoriteFood, coolestThing);
+    this._inputs.push(new MenuConfigInput(new InputConfig('Ness', 5), 'menu.inputs.nessHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('Paula', 5), 'menu.inputs.paulaHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('Jeff', 5), 'menu.inputs.jeffHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('Poo', 5), 'menu.inputs.pooHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.steak', 5), 'menu.inputs.favoriteFoodHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.rockin', 5), 'menu.inputs.coolestThingHelpText'));
   }
 
   public get load(): DialogOption {
@@ -46,11 +44,11 @@ export class MenuConfig {
     this._difficulty = value;
   }
 
-  public get inputs(): MenuConfigInputs {
+  public get inputs(): MenuConfigInput[] {
     return this._inputs;
   }
 
-  public set inputs(value: MenuConfigInputs) {
+  public set inputs(value: MenuConfigInput[]) {
     this._inputs = value;
   }
 }

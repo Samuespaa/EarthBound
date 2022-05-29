@@ -1,18 +1,18 @@
 export class InputConfig {
-  private _defaultValue: string = '';
+  private _value: string = '';
   private _maxLength: number = 6;
 
-  constructor(defaultValue: string, maxLength: number) {
-    this._defaultValue = defaultValue;
+  constructor(value: string, maxLength: number) {
+    this._value = value;
     this._maxLength = maxLength;
   }
 
-  public get defaultValue(): string {
-    return this._defaultValue;
+  public get value(): string {
+    return this._value;
   }
   
-  public set defaultValue(value: string) {
-    this._defaultValue = value;
+  public set value(value: string) {
+    this._value = value;
   }
 
   public get maxLength(): number {

@@ -15,7 +15,7 @@ export class InputDialogComponent implements OnInit, OnChanges {
   constructor(private element: ElementRef) { }
 
   ngOnInit(): void {
-    this.value = this.config.defaultValue;
+    this.value = this.config.value;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
