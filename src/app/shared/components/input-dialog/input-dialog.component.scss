@@ -1,0 +1,20 @@
+.input-dialog {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 2.5rem 2.375rem 2.125rem;
+  border-style: solid;
+  border-image: url('../../../../assets/images/interface/border-peanut.png') 48 / 3rem;
+  border-radius: 3rem;
+  background-color: var(--dialog-background);
+  &-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--text-color);
+    font-family: EarthBound;
+    font-size: 4.75rem;
+  }
+}

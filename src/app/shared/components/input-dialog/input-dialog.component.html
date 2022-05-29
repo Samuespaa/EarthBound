@@ -1,0 +1,10 @@
+<div class="input-dialog">
+  <input
+    class="input-dialog-input"
+    type="text"
+    [value]="value"
+    [attr.maxlength]="config.maxLength"
+    (input)="setInputValue()"
+    (change)="confirm()"
+  >
+</div>

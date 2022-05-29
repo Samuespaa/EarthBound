@@ -6,6 +6,7 @@ import { SelectionDialogConfig } from '../shared/models/selection-dialog-config'
 import { Utils } from '../shared/utils';
 import { MUSICS } from '../shared/constants/musics';
 import { TextConfig } from '../shared/models/text-config';
+import { InputConfig } from '../shared/models/input-config';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,7 @@ import { TextConfig } from '../shared/models/text-config';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
-  private menuConfig: MenuConfig = new MenuConfig();
+  public menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetLoad: boolean = false;
   public speedConfig: SelectionDialogConfig = new SelectionDialogConfig();
@@ -23,6 +24,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   public dialogsVisible: any;
   public textConfig: TextConfig = new TextConfig(false, true, false, 0);
   public pruebaText: string = '';
+  public inputConfig: InputConfig;
+  public inputFocus: boolean = false;
 
   constructor(
     private element: ElementRef,
@@ -63,6 +66,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.translate.get(this.menuConfig.inputs.ness.helpText).subscribe(translation => {
       this.pruebaText = translation + '.';
     });
+    this.inputConfig = this.menuConfig.inputs.ness.inputConfig;
   }
 
   ngOnInit(): void {
@@ -121,6 +125,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   manageTextFinished() {
-    
+    this.inputFocus = true;
+  }
+
+  manageInputConfirmed(name: string) {
+    console.log(name);
+    this.inputFocus = false;
   }
 }

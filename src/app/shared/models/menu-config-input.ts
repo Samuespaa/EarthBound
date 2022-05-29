@@ -1,28 +1,20 @@
+import { InputConfig } from "./input-config";
+
 export class MenuConfigInput {
-  private _defaultText: string;
-  private _maxLength: number;
+  private _inputConfig: InputConfig;
   private _helpText: string;
 
-  constructor(name: string, maxLength: number, helpText: string) {
-    this._defaultText = name;
-    this._maxLength = maxLength;
+  constructor(inputConfig: InputConfig, helpText: string) {
+    this._inputConfig = inputConfig;
     this._helpText = helpText;
   }
 
-  public get defaultText(): string {
-    return this._defaultText;
-  }
-  
-  public set defaultText(value: string) {
-    this._defaultText = value;
+  public get inputConfig(): InputConfig {
+    return this._inputConfig;
   }
 
-  public get maxLength(): number {
-    return this._maxLength;
-  }
-  
-  public set maxLength(value: number) {
-    this._maxLength = value;
+  public set inputConfig(value: InputConfig) {
+    this._inputConfig = value;
   }
 
   public get helpText(): string {

@@ -1,4 +1,5 @@
 import { DialogOption } from "./dialog-option";
+import { InputConfig } from "./input-config";
 import { MenuConfigInput } from "./menu-config-input";
 import { MenuConfigInputs } from "./menu-config-inputs";
 
@@ -12,12 +13,12 @@ export class MenuConfig {
     this._load = new DialogOption('', '');
     this._speed = new DialogOption('', '');
     this._difficulty = new DialogOption('', '');
-    const ness = new MenuConfigInput('Ness', 5, 'menu.inputs.nessHelpText');
-    const paula = new MenuConfigInput('Paula', 5, 'menu.inputs.paulaHelpText');
-    const jeff = new MenuConfigInput('Jeff', 5, 'menu.inputs.jeffHelpText');
-    const poo = new MenuConfigInput('Poo', 5, 'menu.inputs.pooHelpText');
-    const favoriteFood = new MenuConfigInput('menu.inputs.steak', 6, 'menu.inputs.favoriteFoodHelpText');
-    const coolestThing = new MenuConfigInput('menu.inputs.rockin', 6, 'menu.inputs.coolestThingHelpText');
+    const ness = new MenuConfigInput(new InputConfig('Ness', 5), 'menu.inputs.nessHelpText');
+    const paula = new MenuConfigInput(new InputConfig('Paula', 5), 'menu.inputs.paulaHelpText');
+    const jeff = new MenuConfigInput(new InputConfig('Jeff', 5), 'menu.inputs.jeffHelpText');
+    const poo = new MenuConfigInput(new InputConfig('Poo', 5), 'menu.inputs.pooHelpText');
+    const favoriteFood = new MenuConfigInput(new InputConfig('menu.inputs.steak', 5), 'menu.inputs.favoriteFoodHelpText');
+    const coolestThing = new MenuConfigInput(new InputConfig('menu.inputs.rockin', 5), 'menu.inputs.coolestThingHelpText');
     this._inputs = new MenuConfigInputs(ness, paula, jeff, poo, favoriteFood, coolestThing);
   }
 

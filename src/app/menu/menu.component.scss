@@ -37,11 +37,17 @@
   }
   &-character {
     display: flex;
+    justify-content: center;
     position: absolute;
     top: 9.5rem;
     width: calc(100% - 4.75rem);
     &-image {
       height: 7.125rem;
+      margin: 0 2.375rem 0 0;
+    }
+    &-input {
+      width: 19rem;
+      height: 9.5rem;
     }
     &-help {
       width: 40.375rem;
