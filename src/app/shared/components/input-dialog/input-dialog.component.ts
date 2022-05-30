@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { InputConfig } from '../../models/input-config';
+import { SOUNDS } from '../../constants/sounds';
 
 @Component({
   selector: 'app-input-dialog',
@@ -28,11 +29,7 @@ export class InputDialogComponent implements OnInit, OnChanges {
       }
     }
   }
-
-  setInputValue() {
-    this.value = this.element.nativeElement.querySelector('.input-dialog-input').value;
-  }
-
+  
   getFocus(focus: boolean) {
     if (focus) {
       this.element.nativeElement.querySelector('.input-dialog-input').focus();
@@ -41,8 +38,31 @@ export class InputDialogComponent implements OnInit, OnChanges {
       this.element.nativeElement.querySelector('.input-dialog-input').blur();
     }
   }
+  
+  setInputValue() {
+    let input = this.element.nativeElement.querySelector('.input-dialog-input');
+    input.value = input.value.replace(/[^\w]/g, '');
+    this.value = input.value;
+  }
+  
+  checkKey() {
+    const code = (event as KeyboardEvent).code;
+    if (code === 'Backspace') {
+      SOUNDS.deleteLetter.currentTime = 0;
+      SOUNDS.deleteLetter.play();
+    }
+    else if (code.startsWith('Key') || code.startsWith('Digit')) {
+      SOUNDS.insertLetter.currentTime = 0;
+      SOUNDS.insertLetter.play();
+    }
+    this.getFocus(code !== 'Enter');
+  }
 
   confirm() {
+    SOUNDS.okdesuka.play();
+    if (this.value === '') {
+      this.value = this.config.value;
+    }
     this.confirmed.emit(this.value);
   }
 }
