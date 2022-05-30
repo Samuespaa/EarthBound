@@ -5,6 +5,7 @@
     [value]="value"
     [attr.maxlength]="config.maxLength"
     (input)="setInputValue()"
-    (change)="confirm()"
+    (keyup)="getFocus($event.code !== 'Enter')"
+    (blur)="confirm()"
   >
 </div>

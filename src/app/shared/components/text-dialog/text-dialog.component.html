@@ -2,7 +2,7 @@
   <div class="text-dialog-area">
     <div class="text-dialog-area-container">
       <div class="text-dialog-area-container-paragraph" *ngFor="let t of texts">
-        <div class="text-dialog-area-container-paragraph-icon">
+        <div class="text-dialog-area-container-paragraph-icon" *ngIf="config.paragraphSymbol">
           <span class="text-dialog-area-container-paragraph-icon-text">@</span>
         </div>
         <span class="text-dialog-area-container-paragraph-text">{{t}}</span>

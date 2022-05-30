@@ -20,6 +20,9 @@ export class InputDialogComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
+      if (property === 'config') {
+        this.value = changes[property].currentValue.value;
+      }
       if (property === 'focus') {
         this.getFocus(changes[property].currentValue);
       }

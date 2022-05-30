@@ -8,7 +8,7 @@ import { SOUNDS } from '../../constants/sounds';
   styleUrls: ['./text-dialog.component.scss']
 })
 export class TextDialogComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() public config: TextConfig = new TextConfig(true, false, false, 0);
+  @Input() public config: TextConfig = new TextConfig(true, false, false, 0, true);
   @Input() public text: string = '';
   @Output() private finished: EventEmitter<boolean> = new EventEmitter<boolean>();
   public texts: string[] = [];

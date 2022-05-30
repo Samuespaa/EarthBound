@@ -3,12 +3,14 @@ export class TextConfig {
   private _instant: boolean;
   private _sound: boolean;
   private _autoTime: number;
+  private _paragraphSymbol: boolean;
 
-  constructor(sound: boolean, instant: boolean, auto: boolean, autoTime: number) {
+  constructor(sound: boolean, instant: boolean, auto: boolean, autoTime: number, paragraphSymbol: boolean) {
     this._sound = sound;
     this._instant = instant;
     this._auto = auto;
     this._autoTime = autoTime;
+    this._paragraphSymbol = paragraphSymbol;
   }
 
   public get sound(): boolean {
@@ -41,5 +43,13 @@ export class TextConfig {
 
   public set autoTime(value: number) {
     this._autoTime = value;
+  }
+
+  public get paragraphSymbol(): boolean {
+    return this._paragraphSymbol;
+  }
+
+  public set paragraphSymbol(value: boolean) {
+    this._paragraphSymbol = value;
   }
 }

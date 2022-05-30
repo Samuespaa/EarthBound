@@ -7,7 +7,7 @@
   background-color: var(--menu-first-tile-background);
   background-image: repeating-linear-gradient(45deg, var(--menu-second-tile-background) 25%, transparent 25%, transparent 75%, var(--menu-second-tile-background) 75%, var(--menu-second-tile-background)),
                     repeating-linear-gradient(45deg, var(--menu-second-tile-background) 25%, transparent 25%, transparent 75%, var(--menu-second-tile-background) 75%, var(--menu-second-tile-background));
-  background-position: 0 0, 2.374rem 2.374rem;
+  background-position: 0 0, 2.375rem 2.375rem;
   background-size: calc(2 * 2.375rem) calc(2 * 2.375rem);
   &-overlay {
     position: absolute;
@@ -44,14 +44,51 @@
     &-image {
       height: 7.125rem;
       margin: 0 2.375rem 0 0;
+      animation-name: appearRight;
+      animation-duration: .5s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      &.leave {
+        animation-name: disappearLeft;
+      }
+      &.leave-no-rotate {
+        animation-name: disappearLeftNoRotate;
+      }
     }
     &-input {
-      width: 19rem;
+      width: 19.5rem;
       height: 9.5rem;
     }
     &-help {
-      width: 40.375rem;
+      width: 41rem;
       height: 9.5rem;
     }
+  }
+}
+
+@keyframes appearRight {
+  from {
+    transform: translateX(-10rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes disappearLeft {
+  from {
+    transform: translateX(0) rotateY(180deg);
+  }
+  to {
+    transform: translateX(-10rem) rotateY(180deg);
+  }
+}
+
+@keyframes disappearLeftNoRotate {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-10rem);
   }
 }

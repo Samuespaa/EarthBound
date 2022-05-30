@@ -10,7 +10,11 @@
     <app-selection-dialog *ngIf="dialogsVisible.difficulty" [config]="difficultyConfig" [reset]="resetDifficulty" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
   </div>
   <div class="menu-character" *ngIf="dialogsVisible.input">
-    <img class="menu-character-image" src="../../assets/images/loading/ness-ready.png">
+    <img
+      class="menu-character-image"
+      [ngClass]="{leave: characterAnimation.direction === 'left', 'leave-no-rotate': characterAnimation.direction === 'left' && inputId > 4}"
+      src="../../assets/images/menu/{{characterAnimation.name}}-walking-{{characterAnimation.direction === 'left' ? 'right' : characterAnimation.direction}}-{{characterAnimation.sprite}}.png"
+    >
     <div class="menu-character-input">
       <app-input-dialog [config]="inputConfig" [focus]="inputFocus" (confirmed)="manageInputConfirmed($event)"></app-input-dialog>
     </div>

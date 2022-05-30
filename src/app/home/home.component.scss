@@ -36,35 +36,35 @@
       animation-fill-mode: forwards;
       &:nth-child(1) {
         right: .3%;
-        transform: translateX(-1600px);
+        transform: translateX(-100rem);
         animation-name: appearLetter;
         animation-duration: .9s;
         animation-delay: 2.1s;
       }
       &:nth-child(2) {
         right: 1%;
-        transform: translateX(-1400px);
+        transform: translateX(-87.5rem);
         animation-name: appearLetter;
         animation-duration: 1.2s;
         animation-delay: 1.8s;
       }
       &:nth-child(3) {
         right: 1.3%;
-        transform: translateX(-1200px);
+        transform: translateX(-75rem);
         animation-name: appearLetter;
         animation-duration: 1.8s;
         animation-delay: 1.2s;
       }
       &:nth-child(4) {
         right: 2.6%;
-        transform: translateX(-1000px);
+        transform: translateX(-62.5rem);
         animation-name: appearLetter;
         animation-duration: 2.4s;
         animation-delay: .6s;
       }
       &:nth-child(5) {
         right: 4.2%;
-        transform: translateX(-800px);
+        transform: translateX(-50rem);
         animation-name: appearLetter;
         animation-duration: 3s;
         animation-delay: 0s;
@@ -78,28 +78,28 @@
       &:nth-child(7) {
         right: 2.3%;
         height: 61%;
-        transform: translateX(1000px);
+        transform: translateX(62.5rem);
         animation-name: appearLetter;
         animation-duration: 2.4s;
         animation-delay: .6s;
       }
       &:nth-child(8) {
         right: 1.4%;
-        transform: translateX(1200px);
+        transform: translateX(75rem);
         animation-name: appearLetter;
         animation-duration: 1.8s;
         animation-delay: 1.2s;
       }
       &:nth-child(9) {
         right: .6%;
-        transform: translateX(1400px);
+        transform: translateX(87.5rem);
         animation-name: appearLetter;
         animation-duration: 1.2s;
         animation-delay: 1.8s;
       }
       &:nth-child(10) {
         right: -.1%;
-        transform: translateX(1600px);
+        transform: translateX(100rem);
         animation-name: appearLetter;
         animation-duration: .9s;
         animation-delay: 2.1s;
@@ -164,9 +164,9 @@
 
 @keyframes logoFlash {
   75% {
-    filter: drop-shadow(0px 0px 2rem #f6f274) drop-shadow(0px 0px 3rem #f6f274);
+    filter: drop-shadow(0 0 2rem #f6f274) drop-shadow(0 0 3rem #f6f274);
   }
   100% {
-    filter: drop-shadow(0px 0px 1rem #f6f274) drop-shadow(0px 0px 3rem #f6f274);
+    filter: drop-shadow(0 0 1rem #f6f274) drop-shadow(0 0 3rem #f6f274);
   }
 }

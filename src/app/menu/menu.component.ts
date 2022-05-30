@@ -22,11 +22,13 @@ export class MenuComponent implements OnInit, OnDestroy {
   public difficultyConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetDifficulty: boolean = false;
   public dialogsVisible: any;
-  public textConfig: TextConfig = new TextConfig(false, true, false, 0);
+  public textConfig: TextConfig = new TextConfig(false, true, false, 0, false);
   public helpText: string = '';
   public inputConfig: InputConfig;
   public inputFocus: boolean = false;
-  private inputId: number = 0;
+  public inputId: number = 0;
+  public characterAnimation: {name: string, sprite: number, direction: 'right' | 'bottom' | 'left'}
+  private characterSpriteInterval: NodeJS.Timeout;
 
   constructor(
     private element: ElementRef,
@@ -65,9 +67,17 @@ export class MenuComponent implements OnInit, OnDestroy {
       input: false
     }
     this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
-      this.helpText = translation + '.';
+      this.helpText = translation;
     });
     this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
+    this.characterAnimation = {
+      name: this.menuConfig.inputs[this.inputId].inputConfig.value.toLowerCase(),
+      direction: 'right',
+      sprite: 1
+    }
+    this.characterSpriteInterval = setInterval(() => {
+      this.changeLoadingSprite();
+    }, 166);
   }
 
   ngOnInit(): void {
@@ -76,11 +86,17 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     MUSICS.chooseAFile.pause();
+    MUSICS.yourNamePlease.pause();
+    clearInterval(this.characterSpriteInterval);
   }
 
   @HostListener('window:resize') calculateSizes() {
     Utils.calculateBackgroundSize(this.element, '.menu');
     Utils.calculateTextSize();
+  }
+
+  changeLoadingSprite() {
+    this.characterAnimation.sprite === 1 ? this.characterAnimation.sprite++ : this.characterAnimation.sprite--;
   }
 
   manageLoadSelected(optionSelected: DialogOption) {
@@ -119,6 +135,19 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.dialogsVisible[property] = false;
     }
     this.dialogsVisible.input = true;
+    this.enterCharacterAnimation(true);
+  }
+
+  enterCharacterAnimation(enter: boolean) {
+    if (enter) {
+      this.characterAnimation.direction = 'right';
+      setTimeout(() => {
+        this.characterAnimation.direction = 'bottom';
+      }, 500);
+    }
+    else {
+      this.characterAnimation.direction = 'left';
+    }
   }
 
   cancelDifficultySelection() {
@@ -133,8 +162,23 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   manageInputConfirmed(name: string) {
-    console.log(name);
     this.menuConfig.inputs[this.inputId++].inputConfig.value = name;
     this.inputFocus = false;
+    this.enterCharacterAnimation(false);
+    if (this.inputId < this.menuConfig.inputs.length) {
+      setTimeout(() => {
+        const characterNameSplitted = this.menuConfig.inputs[this.inputId].inputConfig.value.split('.');
+        this.characterAnimation.name = characterNameSplitted[characterNameSplitted.length - 1].toLowerCase();
+        this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
+          this.helpText = translation;
+        });
+        this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
+        this.inputConfig.value = this.translate.instant(this.inputConfig.value);
+        this.enterCharacterAnimation(true);
+      }, 500);
+    }
+    else {
+      // *Mostrar resumen de los inputs
+    }
   }
 }

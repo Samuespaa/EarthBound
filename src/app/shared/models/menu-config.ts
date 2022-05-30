@@ -16,8 +16,8 @@ export class MenuConfig {
     this._inputs.push(new MenuConfigInput(new InputConfig('Paula', 5), 'menu.inputs.paulaHelpText'));
     this._inputs.push(new MenuConfigInput(new InputConfig('Jeff', 5), 'menu.inputs.jeffHelpText'));
     this._inputs.push(new MenuConfigInput(new InputConfig('Poo', 5), 'menu.inputs.pooHelpText'));
-    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.steak', 5), 'menu.inputs.favoriteFoodHelpText'));
-    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.rockin', 5), 'menu.inputs.coolestThingHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.steak', 6), 'menu.inputs.favoriteFoodHelpText'));
+    this._inputs.push(new MenuConfigInput(new InputConfig('menu.inputs.rockin', 6), 'menu.inputs.coolestThingHelpText'));
   }
 
   public get load(): DialogOption {
