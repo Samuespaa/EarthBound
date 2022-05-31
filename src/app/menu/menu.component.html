@@ -22,5 +22,28 @@
       <app-text-dialog [config]="textConfig" [text]="helpText" (finished)="manageTextFinished()"></app-text-dialog>
     </div>
   </div>
+  <div class="menu-summary" *ngIf="dialogsVisible.summary">
+    <div class="menu-summary-names">
+      <div class="menu-summary-names-characters">
+        <div class="menu-summary-names-characters-character" *ngFor="let character of characterOriginalNames; let i = index">
+          <img class="menu-summary-names-characters-character-image" src="../../assets/images/menu/{{character}}-walking-bottom-{{characterAnimation.sprite}}.png">
+          <div class="menu-summary-names-characters-character-dialog">
+            <app-text-dialog [config]="textConfig" [text]="menuConfig.inputs[i].inputConfig.value"></app-text-dialog>
+          </div>
+        </div>
+      </div>
+      <div class="menu-summary-names-things">
+        <div class="menu-summary-names-things-dialog">
+          <app-text-dialog [config]="textConfig" [text]="coolestThingSummary"></app-text-dialog>
+        </div>
+        <div class="menu-summary-names-things-dialog">
+          <app-text-dialog [config]="textConfig" [text]="favoriteFoodSummary"></app-text-dialog>
+        </div>
+      </div>
+    </div>
+    <div class="menu-summary-sure">
+      <app-text-dialog [config]="textConfig" text="{{'menu.summary.sure' | translate}}"></app-text-dialog>
+    </div>
+  </div>
 </div>
 

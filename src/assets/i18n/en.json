@@ -27,6 +27,13 @@
       "coolestThingHelpText": "What's your favorite thing?",
       "steak": "Steak",
       "rockin": "Rockin"
+    },
+    "summary": {
+      "coolestThing": "Coolest thing",
+      "favoriteFood": "Favorite food",
+      "nope": "Nope",
+      "sure": "Are you sure?",
+      "yep": "Yep"
     }
   },
   "battle": {

@@ -27,6 +27,13 @@
       "coolestThingHelpText": "Lo que mas te gusta.",
       "steak": "Filete",
       "rockin": "Rock"
+    },
+    "summary": {
+      "coolestThing": "Lo que mas mola",
+      "favoriteFood": "Comida favorita",
+      "nope": "Nop",
+      "sure": "Estas seguro?",
+      "yep": "Sip"
     }
   },
   "battle": {

@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="text-dialog-cursor" *ngIf="ready">
+  <div class="text-dialog-cursor" *ngIf="ready && !config.auto">
     <img class="text-dialog-cursor-image" src="../../../../assets/images/interface/cursor-down-{{cursorSprite}}.png">
   </div>
 </div>

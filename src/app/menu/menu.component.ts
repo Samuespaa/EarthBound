@@ -3,10 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { DialogOption } from '../shared/models/dialog-option';
 import { MenuConfig } from '../shared/models/menu-config';
 import { SelectionDialogConfig } from '../shared/models/selection-dialog-config';
-import { Utils } from '../shared/utils';
-import { MUSICS } from '../shared/constants/musics';
 import { TextConfig } from '../shared/models/text-config';
 import { InputConfig } from '../shared/models/input-config';
+import { Utils } from '../shared/utils';
+import { MUSICS } from '../shared/constants/musics';
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +14,7 @@ import { InputConfig } from '../shared/models/input-config';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
-  private menuConfig: MenuConfig = new MenuConfig();
+  public menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetLoad: boolean = false;
   public speedConfig: SelectionDialogConfig = new SelectionDialogConfig();
@@ -27,8 +27,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   public inputConfig: InputConfig;
   public inputFocus: boolean = false;
   public inputId: number = 0;
-  public characterAnimation: {name: string, sprite: number, direction: 'right' | 'bottom' | 'left'}
-  private characterSpriteInterval: NodeJS.Timeout;
+  public characterAnimation: {name: string, sprite: number, direction: 'right' | 'bottom' | 'left'};
+  public characterOriginalNames: string[] = ['ness', 'paula', 'jeff', 'poo'];
+  public favoriteFoodSummary: string = '';
+  public coolestThingSummary: string = '';
+  private characterSpriteInterval: NodeJS.Timeout | undefined;
 
   constructor(
     private element: ElementRef,
@@ -64,7 +67,8 @@ export class MenuComponent implements OnInit, OnDestroy {
       load: true,
       speed: false,
       difficulty: false,
-      input: false
+      input: false,
+      summary: false
     }
     this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
       this.helpText = translation;
@@ -75,9 +79,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       direction: 'right',
       sprite: 1
     }
-    this.characterSpriteInterval = setInterval(() => {
-      this.changeLoadingSprite();
-    }, 166);
+    this.setSpriteInterval(166);
   }
 
   ngOnInit(): void {
@@ -93,6 +95,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   @HostListener('window:resize') calculateSizes() {
     Utils.calculateBackgroundSize(this.element, '.menu');
     Utils.calculateTextSize();
+  }
+
+  setSpriteInterval(time: number) {
+    if (this.characterSpriteInterval) {
+      clearInterval(this.characterSpriteInterval);
+    }
+    this.characterSpriteInterval = setInterval(() => {
+      this.changeLoadingSprite();
+    }, time);
   }
 
   changeLoadingSprite() {
@@ -163,10 +174,11 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   manageInputConfirmed(name: string) {
     this.menuConfig.inputs[this.inputId++].inputConfig.value = name;
+    console.log(this.menuConfig.inputs[this.inputId - 1].inputConfig.value);
     this.inputFocus = false;
     this.enterCharacterAnimation(false);
-    if (this.inputId < this.menuConfig.inputs.length) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.inputId < this.menuConfig.inputs.length) {
         const characterNameSplitted = this.menuConfig.inputs[this.inputId].inputConfig.value.split('.');
         this.characterAnimation.name = characterNameSplitted[characterNameSplitted.length - 1].toLowerCase();
         this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
@@ -175,10 +187,23 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
         this.inputConfig.value = this.translate.instant(this.inputConfig.value);
         this.enterCharacterAnimation(true);
-      }, 500);
-    }
-    else {
-      // *Mostrar resumen de los inputs
-    }
+      }
+      else {
+        this.prepareSummary();
+      }
+    }, 500);
+  }
+
+  prepareSummary() {
+    this.dialogsVisible.input = false;
+    this.dialogsVisible.summary = true;
+    this.setSpriteInterval(250);
+    this.textConfig = new TextConfig(false, true, true, 0, false);
+    this.favoriteFoodSummary = this.translate.instant('menu.summary.favoriteFood') + ':';
+    this.coolestThingSummary = this.translate.instant('menu.summary.coolestThing') + ':';
+    setTimeout(() => {
+      this.favoriteFoodSummary = '       ' + this.menuConfig.inputs[4].inputConfig.value;
+      this.coolestThingSummary = '       ' + this.menuConfig.inputs[5].inputConfig.value;
+    }); 
   }
 }

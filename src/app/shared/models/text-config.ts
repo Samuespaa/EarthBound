@@ -5,7 +5,12 @@ export class TextConfig {
   private _autoTime: number;
   private _paragraphSymbol: boolean;
 
-  constructor(sound: boolean, instant: boolean, auto: boolean, autoTime: number, paragraphSymbol: boolean) {
+  constructor(
+    sound: boolean = true,
+    instant: boolean = false,
+    auto: boolean = false,
+    autoTime: number = 1000,
+    paragraphSymbol: boolean = true) {
     this._sound = sound;
     this._instant = instant;
     this._auto = auto;
