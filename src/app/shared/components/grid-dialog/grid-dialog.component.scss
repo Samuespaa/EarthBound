@@ -1,0 +1,50 @@
+.grid-dialog {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 2.5rem 2.375rem 2.125rem;
+  border-style: solid;
+  border-image: url('../../../../assets/images/interface/border-peanut.png') 48 / 3rem;
+  border-radius: 3rem;
+  background-color: var(--dialog-background);
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    &-description {
+      overflow: hidden;
+      width: 50%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &-options {
+      display: flex;
+      width: 50%;
+      &.no-description {
+        width: 100%;
+      }
+      &-option {
+        display: flex;
+        align-items: center;
+        flex: 25%;
+        overflow: hidden;
+        height: 4.6875rem;
+        padding: 0 1.25rem 0 .5rem;
+        &-cursor {
+          width: 2rem;
+          &-image {
+            position: relative;
+            top: -.5rem;
+            height: 2.5rem;
+          }
+        }
+        &-text {
+          overflow: hidden;
+          width: calc(100% - 2rem);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,9 @@ import { TextConfig } from '../shared/models/text-config';
 import { InputConfig } from '../shared/models/input-config';
 import { Utils } from '../shared/utils';
 import { MUSICS } from '../shared/constants/musics';
+import { GridDialogRow } from '../shared/models/grid-dialog-row';
+import { GridDialogConfig } from '../shared/models/grid-dialog-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -28,14 +31,17 @@ export class MenuComponent implements OnInit, OnDestroy {
   public inputFocus: boolean = false;
   public inputId: number = 0;
   public characterAnimation: {name: string, sprite: number, direction: 'right' | 'bottom' | 'left'};
+  private inputsOriginalNames: string[] = ['ness', 'paula', 'jeff', 'poo', 'steak', 'rockin'];
   public characterOriginalNames: string[] = ['ness', 'paula', 'jeff', 'poo'];
   public favoriteFoodSummary: string = '';
   public coolestThingSummary: string = '';
+  public gridConfig: GridDialogConfig = new GridDialogConfig();
   private characterSpriteInterval: NodeJS.Timeout | undefined;
 
   constructor(
     private element: ElementRef,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {
     MUSICS.chooseAFile.loop = true;
     MUSICS.chooseAFile.play();
@@ -54,7 +60,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         new DialogOption('1', translations['menu.textSpeed.slow'])
       ];
     });
-    this.speedConfig.focus = false;
     this.translate.get(['menu.difficulty.title', 'menu.difficulty.hard', 'menu.difficulty.normal']).subscribe(translations => {
       this.difficultyConfig.text = translations['menu.difficulty.title'] + '.';
       this.difficultyConfig.options = [
@@ -62,7 +67,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         new DialogOption('1', translations['menu.difficulty.normal'])
       ];
     });
-    this.difficultyConfig.focus = false;
     this.dialogsVisible = {
       load: true,
       speed: false,
@@ -75,10 +79,19 @@ export class MenuComponent implements OnInit, OnDestroy {
     });
     this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
     this.characterAnimation = {
-      name: this.menuConfig.inputs[this.inputId].inputConfig.value.toLowerCase(),
+      name: this.inputsOriginalNames[0],
       direction: 'right',
       sprite: 1
     }
+    this.translate.get(['menu.summary.sure', 'menu.summary.yep', 'menu.summary.nope']).subscribe(translations => {
+      const options: DialogOption[] = [
+        new DialogOption('1', translations['menu.summary.yep']),
+        new DialogOption('0', translations['menu.summary.nope']),
+      ];
+      const row: GridDialogRow = new GridDialogRow(options, translations['menu.summary.sure']);
+      const rows: GridDialogRow[] = [row];
+      this.gridConfig.rows = rows;
+    });
     this.setSpriteInterval(166);
   }
 
@@ -89,6 +102,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     MUSICS.chooseAFile.pause();
     MUSICS.yourNamePlease.pause();
+    MUSICS.nowLetsGo.pause();
     clearInterval(this.characterSpriteInterval);
   }
 
@@ -102,11 +116,11 @@ export class MenuComponent implements OnInit, OnDestroy {
       clearInterval(this.characterSpriteInterval);
     }
     this.characterSpriteInterval = setInterval(() => {
-      this.changeLoadingSprite();
+      this.changeCharacterSprite();
     }, time);
   }
 
-  changeLoadingSprite() {
+  changeCharacterSprite() {
     this.characterAnimation.sprite === 1 ? this.characterAnimation.sprite++ : this.characterAnimation.sprite--;
   }
 
@@ -174,16 +188,12 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   manageInputConfirmed(name: string) {
     this.menuConfig.inputs[this.inputId++].inputConfig.value = name;
-    console.log(this.menuConfig.inputs[this.inputId - 1].inputConfig.value);
     this.inputFocus = false;
     this.enterCharacterAnimation(false);
     setTimeout(() => {
       if (this.inputId < this.menuConfig.inputs.length) {
-        const characterNameSplitted = this.menuConfig.inputs[this.inputId].inputConfig.value.split('.');
-        this.characterAnimation.name = characterNameSplitted[characterNameSplitted.length - 1].toLowerCase();
-        this.translate.get(this.menuConfig.inputs[this.inputId].helpText).subscribe(translation => {
-          this.helpText = translation;
-        });
+        this.characterAnimation.name = this.inputsOriginalNames[this.inputId];
+        this.helpText = this.translate.instant(this.menuConfig.inputs[this.inputId].helpText);
         this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
         this.inputConfig.value = this.translate.instant(this.inputConfig.value);
         this.enterCharacterAnimation(true);
@@ -202,8 +212,35 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.favoriteFoodSummary = this.translate.instant('menu.summary.favoriteFood') + ':';
     this.coolestThingSummary = this.translate.instant('menu.summary.coolestThing') + ':';
     setTimeout(() => {
-      this.favoriteFoodSummary = '       ' + this.menuConfig.inputs[4].inputConfig.value;
-      this.coolestThingSummary = '       ' + this.menuConfig.inputs[5].inputConfig.value;
+      this.favoriteFoodSummary = '      ' + this.menuConfig.inputs[4].inputConfig.value;
+      this.coolestThingSummary = '      ' + this.menuConfig.inputs[5].inputConfig.value;
     }); 
+  }
+
+  manageConfirmation(answer: DialogOption) {
+    if (Number(answer.value)) {
+      MUSICS.yourNamePlease.pause();
+      MUSICS.nowLetsGo.play();
+      this.gridConfig.focus = false;
+      // Guardar MenuConfig
+      setTimeout(() => {
+        this.router.navigate(['loading']);
+      }, 3000);
+    }
+    else {
+      this.resetInputs();
+    }
+  }
+
+  resetInputs() {
+    this.dialogsVisible.summary = false;
+    this.dialogsVisible.input = true;
+    this.textConfig = new TextConfig(false, true, false, 0, false);
+    this.inputId = 0;
+    this.characterAnimation.name = this.inputsOriginalNames[this.inputId];
+    this.helpText = this.translate.instant(this.menuConfig.inputs[this.inputId].helpText);
+    this.inputConfig = this.menuConfig.inputs[this.inputId].inputConfig;
+    this.inputConfig.value = this.translate.instant(this.inputConfig.value);
+    this.enterCharacterAnimation(true);
   }
 }

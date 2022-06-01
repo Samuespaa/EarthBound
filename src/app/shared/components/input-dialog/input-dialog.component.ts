@@ -41,7 +41,7 @@ export class InputDialogComponent implements OnInit, OnChanges {
   
   setInputValue() {
     let input = this.element.nativeElement.querySelector('.input-dialog-input');
-    input.value = input.value.replace(/[^\w]/g, '');
+    input.value = input.value.replace(/[^A-Za-z0-9]/g, '');
     this.value = input.value;
   }
   

@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="menu-summary-sure">
-      <app-text-dialog [config]="textConfig" text="{{'menu.summary.sure' | translate}}"></app-text-dialog>
+      <app-grid-dialog [config]="gridConfig" (selected)="manageConfirmation($event)"></app-grid-dialog>
     </div>
   </div>
 </div>

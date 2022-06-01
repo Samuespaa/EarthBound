@@ -20,7 +20,7 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor() {
     this.cursorInterval = setInterval(() => {
-      this.changeLoadingSprite();
+      this.changeCursorSprite();
     }, 166);
   }
 
@@ -74,7 +74,7 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  changeLoadingSprite() {
+  changeCursorSprite() {
     this.cursorSprite === 1 ? this.cursorSprite++ : this.cursorSprite--;
   }
 
