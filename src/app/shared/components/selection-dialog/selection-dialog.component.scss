@@ -25,6 +25,9 @@
         }
       }
       &-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         &.selected {
           background-color: var(--dialog-option-selected);
         }

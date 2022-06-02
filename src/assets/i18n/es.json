@@ -5,7 +5,10 @@
   },
   "menu": {
     "load": {
-      "newGame": "Comenzar Nueva Partida"
+      "difficulty": "Dificultad",
+      "level": "Nivel",
+      "newGame": "Comenzar Nueva Partida",
+      "textSpeed": "Texto"
     },
     "textSpeed": {
       "fast": "Rapida",

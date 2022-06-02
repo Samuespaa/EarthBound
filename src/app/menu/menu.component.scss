@@ -18,6 +18,9 @@
     animation-duration: 1s;
     animation-fill-mode: forwards;
     z-index: 1;
+    &.show {
+      animation-name: show;
+    }
   }
   &-load {
     position: absolute;

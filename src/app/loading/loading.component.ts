@@ -43,7 +43,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
   @HostListener('window:keyup') navigateTo() {
     if (this.ready) {
       document.documentElement.requestFullscreen();
-      Utils.navigateTo(this.router, 'home');
+      this.router.navigateByUrl('home');
     }
   }
 

@@ -1,5 +1,5 @@
 <div class="menu">
-  <div class="menu-overlay"></div>
+  <div class="menu-overlay" [ngClass]="{show: overlay}"></div>
   <div class="menu-load">
     <app-selection-dialog *ngIf="dialogsVisible.load" [config]="loadConfig" [reset]="resetLoad" (selected)="manageLoadSelected($event)"></app-selection-dialog>
   </div>

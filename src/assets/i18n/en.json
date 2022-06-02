@@ -5,7 +5,10 @@
   },
   "menu": {
     "load": {
-      "newGame": "Start New Game"
+      "difficulty": "Difficulty",
+      "level": "Level",
+      "newGame": "Start New Game",
+      "textSpeed": "Text"
     },
     "textSpeed": {
       "fast": "Fast",
@@ -14,7 +17,7 @@
       "title": "Please select text speed"
     },
     "difficulty": {
-      "hard": "Dificil",
+      "hard": "Hard",
       "normal": "Normal",
       "title": "Please select difficulty"
     },

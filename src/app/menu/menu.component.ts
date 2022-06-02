@@ -10,6 +10,7 @@ import { MUSICS } from '../shared/constants/musics';
 import { GridDialogRow } from '../shared/models/grid-dialog-row';
 import { GridDialogConfig } from '../shared/models/grid-dialog-config';
 import { Router } from '@angular/router';
+import { SlotInfo } from '../shared/models/slot-info';
 
 @Component({
   selector: 'app-menu',
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, OnDestroy {
+  private slotsInfo: SlotInfo[];
   public menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public resetLoad: boolean = false;
@@ -36,6 +38,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   public favoriteFoodSummary: string = '';
   public coolestThingSummary: string = '';
   public gridConfig: GridDialogConfig = new GridDialogConfig();
+  public overlay: boolean = false;
   private characterSpriteInterval: NodeJS.Timeout | undefined;
 
   constructor(
@@ -45,26 +48,34 @@ export class MenuComponent implements OnInit, OnDestroy {
   ) {
     MUSICS.chooseAFile.loop = true;
     MUSICS.chooseAFile.play();
-    this.translate.get('menu.load.newGame').subscribe(translation => {
-      this.loadConfig.options = [
-        new DialogOption('1', `1: ${translation}`),
-        new DialogOption('2', `2: ${translation}`),
-        new DialogOption('3', `3: ${translation}`)
-      ];
+    this.slotsInfo = Utils.loadSlotsInfo();
+    this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.textSpeed', 'menu.load.difficulty']).subscribe(translations => {
+      for (let i = 0; i < this.slotsInfo.length; i++) {
+        if (this.slotsInfo[i].used) {
+          const text = `${i + 1}: ${this.slotsInfo[i].mainCharacterName}
+                        ${translations['menu.load.level']}: ${this.slotsInfo[i].mainCharacterLevel}
+                        ${translations['menu.load.textSpeed']}: ${this.slotsInfo[i].speed.text}
+                        ${translations['menu.load.difficulty']}: ${this.slotsInfo[i].difficulty.text}`;
+          this.loadConfig.options.push(new DialogOption((i + 1).toString(), text));
+        }
+        else {
+          this.loadConfig.options.push(new DialogOption((i + 1).toString(), `${i + 1}: ${translations['menu.load.newGame']}`));
+        }
+      }
     });
     this.translate.get(['menu.textSpeed.title', 'menu.textSpeed.fast', 'menu.textSpeed.medium', 'menu.textSpeed.slow']).subscribe(translations => {
       this.speedConfig.text = translations['menu.textSpeed.title'] + '.';
       this.speedConfig.options = [
-        new DialogOption('3', translations['menu.textSpeed.fast']),
-        new DialogOption('2', translations['menu.textSpeed.medium']),
-        new DialogOption('1', translations['menu.textSpeed.slow'])
+        new DialogOption('15', translations['menu.textSpeed.fast']),
+        new DialogOption('30', translations['menu.textSpeed.medium']),
+        new DialogOption('50', translations['menu.textSpeed.slow'])
       ];
     });
     this.translate.get(['menu.difficulty.title', 'menu.difficulty.hard', 'menu.difficulty.normal']).subscribe(translations => {
       this.difficultyConfig.text = translations['menu.difficulty.title'] + '.';
       this.difficultyConfig.options = [
-        new DialogOption('2', translations['menu.difficulty.hard']),
-        new DialogOption('1', translations['menu.difficulty.normal'])
+        new DialogOption('1', translations['menu.difficulty.hard']),
+        new DialogOption('0', translations['menu.difficulty.normal'])
       ];
     });
     this.dialogsVisible = {
@@ -129,8 +140,17 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.loadConfig.defaultOption = optionSelected;
     this.loadConfig.focus = false;
     this.resetLoad = false;
-    this.speedConfig.focus = true;
-    this.dialogsVisible.speed = true;
+    const slot = this.slotsInfo.find(slot => slot.id === Number(optionSelected.value));
+    if (slot && slot.used) {
+      this.overlay = true;
+      setTimeout(() => {
+        this.router.navigateByUrl('loading');
+      }, 1000);
+    }
+    else {
+      this.speedConfig.focus = true;
+      this.dialogsVisible.speed = true;
+    }
   }
 
   manageSpeedSelected(speedSelected: DialogOption) {
@@ -222,9 +242,12 @@ export class MenuComponent implements OnInit, OnDestroy {
       MUSICS.yourNamePlease.pause();
       MUSICS.nowLetsGo.play();
       this.gridConfig.focus = false;
-      // Guardar MenuConfig
+      Utils.saveNewGame(this.menuConfig);
       setTimeout(() => {
-        this.router.navigate(['loading']);
+        this.overlay = true;
+      }, 2000);
+      setTimeout(() => {
+        this.router.navigateByUrl('loading');
       }, 3000);
     }
     else {
