@@ -1,5 +1,11 @@
 {
   "loading": {
+    "accept": "Accept",
+    "acceptControls": "Z or Enter or Spacebar",
+    "back": "Back",
+    "backControls": "X or Backspace or Escape",
+    "cursor": "Cursor",
+    "cursorControls": "W A S D or Directional arrows",
     "loading": "Loading",
     "ready": "Ready"
   },

@@ -7,4 +7,18 @@
     <img class="loading-content-ness" *ngIf="!ready" src="../../assets/images/loading/ness-loading-{{loadingSprite}}.png" ondragstart="return false">
     <img class="loading-content-ness" *ngIf="ready" src="../../assets/images/loading/ness-ready.png" ondragstart="return false">
   </div>
+  <div class="loading-controls">
+    <div class="loading-controls-control">
+      <span>{{'loading.cursor' | translate}}:</span>
+      <span>{{'loading.cursorControls' | translate}}</span>
+    </div>
+    <div class="loading-controls-control">
+      <span>{{'loading.accept' | translate}}:</span>
+      <span>{{'loading.acceptControls' | translate}}</span>
+    </div>
+    <div class="loading-controls-control">
+      <span>{{'loading.back' | translate}}:</span>
+      <span>{{'loading.backControls' | translate}}</span>
+    </div>
+  </div>
 </div>

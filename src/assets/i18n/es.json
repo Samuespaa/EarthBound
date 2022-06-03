@@ -1,5 +1,11 @@
 {
   "loading": {
+    "accept": "Aceptar",
+    "acceptControls": "Z o Intro o Espacio",
+    "back": "Atras",
+    "backControls": "X o Retroceso o Escape",
+    "cursor": "Cursor",
+    "cursorControls": "W A S D o Flechas direccionales",
     "loading": "Cargando",
     "ready": "Listo"
   },
