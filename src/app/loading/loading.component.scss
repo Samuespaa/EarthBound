@@ -5,6 +5,9 @@
   position: relative;
   overflow: hidden;
   background-color: var(--background);
+  &-resource {
+    display: none;
+  }
   &-no-mouse {
     position: absolute;
     top: 1.5rem;

@@ -1,37 +1,18 @@
-import { ElementRef } from "@angular/core";
-import { Character } from "./models/character";
-import { DialogOption } from "./models/dialog-option";
-import { MenuConfig } from "./models/menu-config";
-import { SaveSlot } from "./models/save-slot";
-import { SlotInfo } from "./models/slot-info";
-import { Stats } from "./models/stats";
+import { Character } from "../models/character";
+import { DialogOption } from "../models/dialog-option";
+import { MenuConfig } from "../models/menu-config";
+import { SaveSlot } from "../models/save-slot";
+import { SlotInfo } from "../models/slot-info";
+import { Stats } from "../models/stats";
 
-export class Utils {
-  static calculateBackgroundSize(element: ElementRef, selector: string) {
-    const home: HTMLHtmlElement = element.nativeElement.querySelector(selector);
-    const width: number = window.innerWidth / 1234;
-    const height: number = window.innerHeight / 1080;
-    if (width > height) {
-      home.style.width = '114.26vh';
-      home.style.height = '100vh';
-    }
-    else {
-      home.style.width = '100vw';
-      home.style.height = '87.52vw';
-    }
+export class Save {
+  static firstTimePlaying(): boolean {
+    const firstTime = localStorage.getItem('firstTimePlaying') || '';
+    return firstTime ? false : true;
   }
 
-  static calculateTextSize() {
-    const html: HTMLHtmlElement | null = document.querySelector('html');
-    if (html) {
-      let size: number = 16;
-      const width: number = window.innerWidth / 1234 * size;
-      const height: number = window.innerHeight / 1080 * size;
-      width > height
-      ? size = height
-      : size = width;
-      html.style.fontSize = size.toString() + 'px';
-    }
+  static setFirstTimePlaying(firstTime: boolean) {
+    localStorage.setItem('firstTimePlaying', JSON.stringify(firstTime));
   }
 
   static saveNewGame(menuConfig: MenuConfig) {

@@ -5,12 +5,13 @@ import { MenuConfig } from '../shared/models/menu-config';
 import { SelectionDialogConfig } from '../shared/models/selection-dialog-config';
 import { TextConfig } from '../shared/models/text-config';
 import { InputConfig } from '../shared/models/input-config';
-import { Utils } from '../shared/utils';
+import { Utils } from '../shared/functionality/utils';
 import { MUSICS } from '../shared/constants/musics';
 import { GridDialogRow } from '../shared/models/grid-dialog-row';
 import { GridDialogConfig } from '../shared/models/grid-dialog-config';
 import { Router } from '@angular/router';
 import { SlotInfo } from '../shared/models/slot-info';
+import { Save } from '../shared/functionality/save';
 
 @Component({
   selector: 'app-menu',
@@ -48,7 +49,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   ) {
     MUSICS.chooseAFile.loop = true;
     MUSICS.chooseAFile.play();
-    this.slotsInfo = Utils.loadSlotsInfo();
+    this.slotsInfo = Save.loadSlotsInfo();
     this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.textSpeed', 'menu.load.difficulty']).subscribe(translations => {
       for (let i = 0; i < this.slotsInfo.length; i++) {
         if (this.slotsInfo[i].used) {
@@ -140,7 +141,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.loadConfig.defaultOption = optionSelected;
     this.loadConfig.focus = false;
     this.resetLoad = false;
-    const slot = this.slotsInfo.find(slot => slot.id === Number(optionSelected.value));
+    const slot: SlotInfo = this.slotsInfo.find(slot => slot.id === Number(optionSelected.value)) || new SlotInfo();
     if (slot && slot.used) {
       this.overlay = true;
       setTimeout(() => {
@@ -242,7 +243,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       MUSICS.yourNamePlease.pause();
       MUSICS.nowLetsGo.play();
       this.gridConfig.focus = false;
-      Utils.saveNewGame(this.menuConfig);
+      Save.saveNewGame(this.menuConfig);
       setTimeout(() => {
         this.overlay = true;
       }, 2000);

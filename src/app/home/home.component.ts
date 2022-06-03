@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MUSICS } from '../shared/constants/musics';
-import { Utils } from '../shared/utils';
+import { Utils } from '../shared/functionality/utils';
 
 @Component({
   selector: 'app-home',

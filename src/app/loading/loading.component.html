@@ -1,4 +1,5 @@
 <div class="loading" (click)="showNoMouse()">
+  <img class="loading-resource" *ngFor="let image of initialImages" [src]="'../../' + image">
   <img class="loading-no-mouse" *ngIf="noMouse" src="../../assets/images/loading/no-mouse.png" ondragstart="return false">
   <div class="loading-content">
     <span class="loading-content-loading" *ngIf="!ready">{{'loading.loading' | translate}}</span>
