@@ -1,10 +1,54 @@
 @font-face {
-  font-family: 'Josefin Sans';
-  src: url('assets/fonts/JosefinSans-Light.ttf');
+  font-family: JosefinSans;
+  src: url('assets/fonts/josefin-sans-light.ttf');
 }
 @font-face {
   font-family: EarthBound;
-  src: url('assets/fonts/EBMain.ttf');
+  src: url('assets/fonts/eb-main.ttf');
+}
+@font-face {
+  font-family: Gas;
+  src: url('assets/fonts/gasfont.woff');
+}
+@font-face {
+  font-family: YearIs199X;
+  src: url('assets/fonts/year-is-199x.woff');
+}
+@font-face {
+  font-family: Onett;
+  src: url('assets/fonts/onett.woff');
+}
+@font-face {
+  font-family: Twoson;
+  src: url('assets/fonts/twoson.woff');
+}
+@font-face {
+  font-family: Fourside;
+  src: url('assets/fonts/fourside.woff');
+}
+@font-face {
+  font-family: StatusPlz;
+  src: url('assets/fonts/status-plz.woff');
+}
+@font-face {
+  font-family: BattleName;
+  src: url('assets/fonts/battle-name.woff');
+}
+@font-face {
+  font-family: Boing;
+  src: url('assets/fonts/saturn-boing.woff');
+}
+@font-face {
+  font-family: LumineHall;
+  src: url('assets/fonts/lumine-hall.woff');
+}
+@font-face {
+  font-family: CurtainCall;
+  src: url('assets/fonts/curtain-call.woff');
+}
+@font-face {
+  font-family: Debug;
+  src: url('assets/fonts/debugme.woff');
 }
 
 :root {
@@ -12,7 +56,8 @@
   --initial-home-background: #000000;
   --flash-home-background: #ffffff;
   --final-home-background: #170139;
-  --intro-text-color: #ffffff;
+  --home-subtitle-color: #f8f000;
+  --home-text-color: #ffffff;
   --text-color: #f7f7bd;
   --menu-first-tile-background: #6baede;
   --menu-second-tile-background: #84df94;

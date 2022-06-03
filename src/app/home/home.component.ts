@@ -1,7 +1,7 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MUSICS } from '../shared/constants/musics';
 import { Utils } from '../shared/functionality/utils';
+import { MUSICS } from '../shared/constants/musics';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +9,17 @@ import { Utils } from '../shared/functionality/utils';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  public hideLetters: boolean = false;
   private logoTimeout: NodeJS.Timeout;
   private navigationTimeout: NodeJS.Timeout;
 
   constructor(
     private element: ElementRef,
-    private render: Renderer2,
     private router: Router
   ) {
     MUSICS.titleScreen.play();
     this.logoTimeout = setTimeout(() => {
-      this.changeLogo();
+      this.hideLetters = true;
     }, 3700);
     this.navigationTimeout = setTimeout(() => {
       this.router.navigateByUrl('menu');
@@ -39,12 +39,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   @HostListener('window:resize') calculateSizes() {
     Utils.calculateBackgroundSize(this.element, '.home');
     Utils.calculateTextSize();
-  }
-
-  changeLogo() {
-    for (const letter of this.element.nativeElement.querySelectorAll('.home-content-letter')) {
-      this.render.setStyle(letter, 'display', 'none');
-    }
-    this.render.setStyle(this.element.nativeElement.querySelector('.home-content-logo'), 'display', 'block');
   }
 }

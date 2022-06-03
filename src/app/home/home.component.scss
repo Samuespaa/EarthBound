@@ -20,7 +20,7 @@
     animation-fill-mode: forwards;
     z-index: 1;
   }
-  &-content {
+  &-title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,13 +106,27 @@
       }
     }
     &-logo {
-      display: none;
       height: 100%;
       animation-name: logoFlash;
       animation-duration: 2.5s;
       animation-delay: 5s;
       animation-timing-function: linear;
       animation-fill-mode: forwards;
+    }
+  }
+  &-subtitle {
+    position: absolute;
+    right: 7.125rem;
+    bottom: 26.25rem;
+    animation-name: logoFlash;
+    animation-duration: 2.5s;
+    animation-delay: 5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    &-text {
+      color: var(--home-subtitle-color);
+      font-family: Boing;
+      font-size: 3.75rem;
     }
   }
   &-credits {
@@ -129,9 +143,9 @@
     animation-fill-mode: forwards;
     &-text {
       margin: 0;
-      color: var(--intro-text-color);
+      color: var(--home-text-color);
       font-size: 3.187rem;
-      font-family: 'Josefin Sans';
+      font-family: JosefinSans;
       line-height: .9;
       opacity: .75;
     }
