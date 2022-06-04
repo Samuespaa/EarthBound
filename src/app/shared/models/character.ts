@@ -3,15 +3,15 @@ import { Stats } from "./stats";
 export class Character {
   private _name: string;
   private _level: number = 1;
-  private _stats: Stats;
+  private _stats: Stats = new Stats(new Array(9).fill(2));
   private _exp: number = 0;
   private _toNextLevel: number = 4;
   //private _psi: Psi[] = [];
   //private _items: Item[] = [];
+  private _inParty: boolean = false;
 
-  constructor(name: string, stats: Stats) {
+  constructor(name: string) {
     this._name = name;
-    this._stats = stats;
   }
 
   public get name(): string {
@@ -52,5 +52,13 @@ export class Character {
 
   public set toNextLevel(value: number) {
     this._toNextLevel = value;
+  }
+
+  public get inParty(): boolean {
+    return this._inParty;
+  }
+  
+  public set inParty(value: boolean) {
+    this._inParty = value;
   }
 }

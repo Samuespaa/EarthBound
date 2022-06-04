@@ -14,9 +14,9 @@
       "difficulty": "Difficulty",
       "level": "Level",
       "newGame": "Start New Game",
-      "textSpeed": "Text"
+      "speed": "Text"
     },
-    "textSpeed": {
+    "speed": {
       "fast": "Fast",
       "medium": "Medium",
       "slow": "Slow",

@@ -50,12 +50,12 @@ export class MenuComponent implements OnInit, OnDestroy {
     MUSICS.chooseAFile.loop = true;
     MUSICS.chooseAFile.play();
     this.slotsInfo = Save.loadSlotsInfo();
-    this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.textSpeed', 'menu.load.difficulty']).subscribe(translations => {
+    this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.speed', 'menu.load.difficulty']).subscribe(translations => {
       for (let i = 0; i < this.slotsInfo.length; i++) {
         if (this.slotsInfo[i].used) {
           const text = `${i + 1}: ${this.slotsInfo[i].mainCharacterName}
                         ${translations['menu.load.level']}: ${this.slotsInfo[i].mainCharacterLevel}
-                        ${translations['menu.load.textSpeed']}: ${this.slotsInfo[i].speed.text}
+                        ${translations['menu.load.speed']}: ${this.slotsInfo[i].speed.text}
                         ${translations['menu.load.difficulty']}: ${this.slotsInfo[i].difficulty.text}`;
           this.loadConfig.options.push(new DialogOption((i + 1).toString(), text));
         }
@@ -64,12 +64,12 @@ export class MenuComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.translate.get(['menu.textSpeed.title', 'menu.textSpeed.fast', 'menu.textSpeed.medium', 'menu.textSpeed.slow']).subscribe(translations => {
-      this.speedConfig.text = translations['menu.textSpeed.title'] + '.';
+    this.translate.get(['menu.speed.title', 'menu.speed.fast', 'menu.speed.medium', 'menu.speed.slow']).subscribe(translations => {
+      this.speedConfig.text = translations['menu.speed.title'] + '.';
       this.speedConfig.options = [
-        new DialogOption('15', translations['menu.textSpeed.fast']),
-        new DialogOption('30', translations['menu.textSpeed.medium']),
-        new DialogOption('50', translations['menu.textSpeed.slow'])
+        new DialogOption('15', translations['menu.speed.fast']),
+        new DialogOption('30', translations['menu.speed.medium']),
+        new DialogOption('50', translations['menu.speed.slow'])
       ];
     });
     this.translate.get(['menu.difficulty.title', 'menu.difficulty.hard', 'menu.difficulty.normal']).subscribe(translations => {
@@ -144,6 +144,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     const slot: SlotInfo = this.slotsInfo.find(slot => slot.id === Number(optionSelected.value)) || new SlotInfo();
     if (slot && slot.used) {
       this.overlay = true;
+      Save.loadGame(slot.id);
       setTimeout(() => {
         this.router.navigateByUrl('loading');
       }, 1000);

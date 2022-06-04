@@ -14,9 +14,9 @@
       "difficulty": "Dificultad",
       "level": "Nivel",
       "newGame": "Comenzar Nueva Partida",
-      "textSpeed": "Texto"
+      "speed": "Texto"
     },
-    "textSpeed": {
+    "speed": {
       "fast": "Rapida",
       "medium": "Media",
       "slow": "Lenta",
