@@ -3,6 +3,7 @@ import { GridDialogRow } from "./grid-dialog-row";
 export class GridDialogConfig {
   private _rows: GridDialogRow[] = [];
   private _type: string = ''; // *Si el grid es de tipo batalla, menú, normal... Para su maquetación especial
+  private _evenOptions: boolean = true;
   private _focus: boolean = true;
   
   public get rows(): GridDialogRow[] {
@@ -19,6 +20,14 @@ export class GridDialogConfig {
 
   public set type(value: string) {
     this._type = value;
+  }
+
+  public get evenOptions(): boolean {
+    return this._evenOptions;
+  }
+  
+  public set evenOptions(value: boolean) {
+    this._evenOptions = value;
   }
 
   public get focus(): boolean {

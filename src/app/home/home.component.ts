@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router
   ) {
+    MUSICS.titleScreen.currentTime = 0;
     MUSICS.titleScreen.play();
     this.logoTimeout = setTimeout(() => {
       this.hideLetters = true;

@@ -26,10 +26,12 @@
       &-option {
         display: flex;
         align-items: center;
-        flex: 25%;
         overflow: hidden;
         height: 4.6875rem;
         padding: 0 1.25rem 0 .5rem;
+        &.even {
+          flex: 25%;
+        }
         &-cursor {
           width: 2rem;
           &-image {
@@ -43,6 +45,9 @@
           width: calc(100% - 2rem);
           text-overflow: ellipsis;
           white-space: nowrap;
+          &.selected {
+            background-color: var(--dialog-option-selected);
+          }
         }
       }
     }

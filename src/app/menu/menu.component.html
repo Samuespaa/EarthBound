@@ -1,13 +1,22 @@
 <div class="menu">
   <div class="menu-overlay" [ngClass]="{show: overlay}"></div>
   <div class="menu-load">
-    <app-selection-dialog *ngIf="dialogsVisible.load" [config]="loadConfig" [reset]="resetLoad" (selected)="manageLoadSelected($event)"></app-selection-dialog>
+    <app-selection-dialog *ngIf="dialogsVisible.load" [config]="loadConfig" [reset]="dialogsReset.load" (selected)="manageLoadSelected($event)"></app-selection-dialog>
   </div>
-  <div class="menu-text-speed">
-    <app-selection-dialog *ngIf="dialogsVisible.speed" [config]="speedConfig" [reset]="resetSpeed" (selected)="manageSpeedSelected($event)" (canceled)="cancelSpeedSelection()"></app-selection-dialog>
+  <div class="menu-continue" *ngIf="dialogsVisible.continue">
+    <app-grid-dialog [config]="continueGridConfig" [reset]="dialogsReset.continue" (selected)="manageContinue($event)" (canceled)="cancelContinue()"></app-grid-dialog>
   </div>
-  <div class="menu-difficulty">
-    <app-selection-dialog *ngIf="dialogsVisible.difficulty" [config]="difficultyConfig" [reset]="resetDifficulty" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
+  <div class="menu-copy" *ngIf="dialogsVisible.copy">
+    <app-selection-dialog [config]="copyConfig" (selected)="manageCopyLocation($event)" (canceled)="cancelCopy()"></app-selection-dialog>
+  </div>
+  <div class="menu-delete" *ngIf="dialogsVisible.delete">
+    <app-selection-dialog [config]="deleteConfig" (selected)="manageDelete($event)" (canceled)="cancelDelete()"></app-selection-dialog>
+  </div>
+  <div class="menu-text-speed" *ngIf="dialogsVisible.speed">
+    <app-selection-dialog [config]="speedConfig" [reset]="dialogsReset.speed" (selected)="manageSpeedSelected($event)" (canceled)="cancelSpeedSelection()"></app-selection-dialog>
+  </div>
+  <div class="menu-difficulty" *ngIf="dialogsVisible.difficulty">
+    <app-selection-dialog [config]="difficultyConfig" (selected)="manageDifficultySelected($event)" (canceled)="cancelDifficultySelection()"></app-selection-dialog>
   </div>
   <div class="menu-character" *ngIf="dialogsVisible.input">
     <img
@@ -42,7 +51,7 @@
       </div>
     </div>
     <div class="menu-summary-sure">
-      <app-grid-dialog [config]="gridConfig" (selected)="manageConfirmation($event)"></app-grid-dialog>
+      <app-grid-dialog [config]="confirmGridConfig" (selected)="manageConfirmation($event)" (canceled)="manageConfirmation($event)"></app-grid-dialog>
     </div>
   </div>
 </div>

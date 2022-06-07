@@ -22,11 +22,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   private slotsInfo: SlotInfo[];
   public menuConfig: MenuConfig = new MenuConfig();
   public loadConfig: SelectionDialogConfig = new SelectionDialogConfig();
-  public resetLoad: boolean = false;
+  public continueGridConfig: GridDialogConfig = new GridDialogConfig();
+  public copyConfig: SelectionDialogConfig = new SelectionDialogConfig();
+  public deleteConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public speedConfig: SelectionDialogConfig = new SelectionDialogConfig();
-  public resetSpeed: boolean = false;
   public difficultyConfig: SelectionDialogConfig = new SelectionDialogConfig();
-  public resetDifficulty: boolean = false;
+  public dialogsReset: any;
   public dialogsVisible: any;
   public textConfig: TextConfig = new TextConfig(false, true, false, 0, false);
   public helpText: string = '';
@@ -38,7 +39,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   public characterOriginalNames: string[] = ['ness', 'paula', 'jeff', 'poo'];
   public favoriteFoodSummary: string = '';
   public coolestThingSummary: string = '';
-  public gridConfig: GridDialogConfig = new GridDialogConfig();
+  public confirmGridConfig: GridDialogConfig = new GridDialogConfig();
   public overlay: boolean = false;
   private characterSpriteInterval: NodeJS.Timeout | undefined;
 
@@ -48,21 +49,27 @@ export class MenuComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     MUSICS.chooseAFile.loop = true;
+    MUSICS.chooseAFile.currentTime = 0;
     MUSICS.chooseAFile.play();
     this.slotsInfo = Save.loadSlotsInfo();
-    this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.speed', 'menu.load.difficulty']).subscribe(translations => {
-      for (let i = 0; i < this.slotsInfo.length; i++) {
-        if (this.slotsInfo[i].used) {
-          const text = `${i + 1}: ${this.slotsInfo[i].mainCharacterName}
-                        ${translations['menu.load.level']}: ${this.slotsInfo[i].mainCharacterLevel}
-                        ${translations['menu.load.speed']}: ${this.slotsInfo[i].speed.text}
-                        ${translations['menu.load.difficulty']}: ${this.slotsInfo[i].difficulty.text}`;
-          this.loadConfig.options.push(new DialogOption((i + 1).toString(), text));
-        }
-        else {
-          this.loadConfig.options.push(new DialogOption((i + 1).toString(), `${i + 1}: ${translations['menu.load.newGame']}`));
-        }
-      }
+    this.setLoadOptions();
+    this.translate.get(['menu.continue.continue', 'menu.continue.copy', 'menu.continue.delete', 'menu.continue.setup']).subscribe(translations => {
+      const options: DialogOption[] = [
+        new DialogOption('continue', translations['menu.continue.continue']),
+        new DialogOption('copy', translations['menu.continue.copy']),
+        new DialogOption('delete', translations['menu.continue.delete']),
+        new DialogOption('setup', translations['menu.continue.setup'])
+      ];
+      this.continueGridConfig.rows = [new GridDialogRow(options)];
+      this.continueGridConfig.evenOptions = false;
+    });
+    this.setCopyOptions();
+    this.translate.get(['menu.delete.title', 'menu.delete.no', 'menu.delete.yes']).subscribe(translations => {
+      this.deleteConfig.text = translations['menu.delete.title'];
+      this.deleteConfig.options = [
+        new DialogOption('0', translations['menu.delete.no']),
+        new DialogOption('1', translations['menu.delete.yes'])
+      ];
     });
     this.translate.get(['menu.speed.title', 'menu.speed.fast', 'menu.speed.medium', 'menu.speed.slow']).subscribe(translations => {
       this.speedConfig.text = translations['menu.speed.title'] + '.';
@@ -79,8 +86,16 @@ export class MenuComponent implements OnInit, OnDestroy {
         new DialogOption('0', translations['menu.difficulty.normal'])
       ];
     });
+    this.dialogsReset = {
+      load: false,
+      continue: false,
+      speed: false
+    };
     this.dialogsVisible = {
       load: true,
+      continue: false,
+      copy: false,
+      delete: false,
       speed: false,
       difficulty: false,
       input: false,
@@ -98,11 +113,9 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.translate.get(['menu.summary.sure', 'menu.summary.yep', 'menu.summary.nope']).subscribe(translations => {
       const options: DialogOption[] = [
         new DialogOption('1', translations['menu.summary.yep']),
-        new DialogOption('0', translations['menu.summary.nope']),
+        new DialogOption('0', translations['menu.summary.nope'])
       ];
-      const row: GridDialogRow = new GridDialogRow(options, translations['menu.summary.sure']);
-      const rows: GridDialogRow[] = [row];
-      this.gridConfig.rows = rows;
+      this.confirmGridConfig.rows = [new GridDialogRow(options, translations['menu.summary.sure'])];
     });
     this.setSpriteInterval(166);
   }
@@ -123,6 +136,36 @@ export class MenuComponent implements OnInit, OnDestroy {
     Utils.calculateTextSize();
   }
 
+  setLoadOptions() {
+    this.loadConfig.options = [];
+    this.translate.get(['menu.load.newGame', 'menu.load.level', 'menu.load.speed', 'menu.load.difficulty']).subscribe(translations => {
+      for (let i = 0; i < this.slotsInfo.length; i++) {
+        if (this.slotsInfo[i].used) {
+          const text = `${i + 1}: ${this.slotsInfo[i].mainCharacterName}
+                        ${translations['menu.load.level']}: ${this.slotsInfo[i].mainCharacterLevel}
+                        ${translations['menu.load.speed']}: ${this.slotsInfo[i].speed.text}
+                        ${translations['menu.load.difficulty']}: ${this.slotsInfo[i].difficulty.text}`;
+          this.loadConfig.options.push(new DialogOption((i + 1).toString(), text));
+        }
+        else {
+          this.loadConfig.options.push(new DialogOption((i + 1).toString(), `${i + 1}: ${translations['menu.load.newGame']}`));
+        }
+      }
+    });
+  }
+
+  setCopyOptions() {
+    this.copyConfig.options = [];
+    this.translate.get('menu.copy.title').subscribe(translation => {
+      this.copyConfig.text = translation;
+      for (let i = 0; i < this.slotsInfo.length; i++) {
+        if (!this.slotsInfo[i].used) {
+          this.copyConfig.options.push(new DialogOption(`${i + 1}`, `${i + 1}:`));
+        }
+      }
+    });
+  }
+
   setSpriteInterval(time: number) {
     if (this.characterSpriteInterval) {
       clearInterval(this.characterSpriteInterval);
@@ -140,14 +183,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuConfig.load = optionSelected;
     this.loadConfig.defaultOption = optionSelected;
     this.loadConfig.focus = false;
-    this.resetLoad = false;
+    this.dialogsReset.load = false;
     const slot: SlotInfo = this.slotsInfo.find(slot => slot.id === Number(optionSelected.value)) || new SlotInfo();
     if (slot && slot.used) {
-      this.overlay = true;
-      Save.loadGame(slot.id);
-      setTimeout(() => {
-        this.router.navigateByUrl('loading');
-      }, 1000);
+      this.continueGridConfig.focus = true;
+      this.dialogsVisible.continue = true;
     }
     else {
       this.speedConfig.focus = true;
@@ -155,34 +195,139 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  manageContinue(option: DialogOption) {
+    this.continueGridConfig.focus = false;
+    this.dialogsReset.continue = false;
+    switch (option.value) {
+      case 'continue':
+        this.continueGame(Number(this.menuConfig.load.value));
+        break;
+      case 'copy':
+        this.copyGame();
+        break;
+      case 'delete':
+        this.deleteGame();
+        break;
+      case 'setup':
+        this.setupGame();
+    }
+  }
+
+  continueGame(slotId: number) {
+    this.overlay = true;
+    Save.loadGame(slotId);
+    setTimeout(() => {
+      this.router.navigateByUrl('loading');
+    }, 1000);
+  }
+
+  copyGame() {
+    this.dialogsVisible.copy = true;
+  }
+
+  manageCopyLocation(option: DialogOption) {
+    if (this.copyConfig.options.length) {
+      this.loadConfig.focus = true;
+      this.dialogsVisible.continue = false;
+      this.dialogsVisible.copy = false;
+      this.dialogsReset.load = true;
+      Save.copySlot(Number(this.menuConfig.load.value), Number(option.value));
+      this.slotsInfo = Save.loadSlotsInfo();
+      this.setLoadOptions();
+      this.setCopyOptions();
+    }
+  }
+
+  cancelCopy() {
+    this.continueGridConfig.focus = true;
+    this.dialogsVisible.copy = false;
+    this.dialogsReset.continue = true;
+  }
+
+  deleteGame() {
+    this.dialogsVisible.delete = true;
+  }
+
+  manageDelete(option: DialogOption) {
+    if (Number(option.value)) {
+      this.loadConfig.focus = true;
+      this.dialogsVisible.continue = false;
+      this.dialogsVisible.delete = false;
+      this.dialogsReset.load = true;
+      Save.deleteSlot(Number(this.menuConfig.load.value));
+      this.slotsInfo = Save.loadSlotsInfo();
+      this.setLoadOptions();
+      this.setCopyOptions();
+    }
+    else {
+      this.cancelDelete();
+    }
+  }
+
+  cancelDelete() {
+    this.continueGridConfig.focus = true;
+    this.dialogsVisible.delete = false;
+    this.dialogsReset.continue = true;
+  }
+
+  setupGame() {
+    this.speedConfig.focus = true;
+    this.dialogsVisible.speed = true;
+  }
+
+  cancelContinue() {
+    this.loadConfig.focus = true;
+    this.dialogsReset.load = true;
+    this.dialogsVisible.continue = false;
+  }
+
   manageSpeedSelected(speedSelected: DialogOption) {
     this.menuConfig.speed = speedSelected;
     this.speedConfig.defaultOption = speedSelected;
     this.speedConfig.focus = false;
-    this.resetSpeed = false;
+    this.dialogsReset.speed = false;
     this.difficultyConfig.focus = true;
     this.dialogsVisible.difficulty = true;
   }
 
   cancelSpeedSelection() {
     this.speedConfig.focus = false;
-    this.loadConfig.focus = true;
-    this.resetLoad = true;
     this.dialogsVisible.speed = false;
+    if (this.dialogsVisible.continue) {
+      this.continueGridConfig.focus = true;
+      this.dialogsReset.continue = true;
+    }
+    else {
+      this.loadConfig.focus = true;
+      this.dialogsReset.load = true;
+    }
   }
 
   manageDifficultySelected(difficultySelected: DialogOption) {
-    MUSICS.chooseAFile.pause();
-    MUSICS.yourNamePlease.loop = true;
-    MUSICS.yourNamePlease.play();
     this.menuConfig.difficulty = difficultySelected;
-    this.difficultyConfig.defaultOption = difficultySelected;
     this.difficultyConfig.focus = false;
-    for (const property in this.dialogsVisible) {
-      this.dialogsVisible[property] = false;
+    this.difficultyConfig.defaultOption = difficultySelected;
+    if (this.dialogsVisible.continue) {
+      for (const property in this.dialogsVisible) {
+        this.dialogsVisible[property] = false;
+      }
+      this.loadConfig.focus = true;
+      this.dialogsVisible.load = true;
+      this.dialogsReset.load = true;
+      Save.setupSlot(this.menuConfig);
+      this.slotsInfo = Save.loadSlotsInfo();
+      this.setLoadOptions();
     }
-    this.dialogsVisible.input = true;
-    this.enterCharacterAnimation(true);
+    else {
+      MUSICS.chooseAFile.pause();
+      MUSICS.yourNamePlease.loop = true;
+      MUSICS.yourNamePlease.play();
+      for (const property in this.dialogsVisible) {
+        this.dialogsVisible[property] = false;
+      }
+      this.dialogsVisible.input = true;
+      this.enterCharacterAnimation(true);
+    }
   }
 
   enterCharacterAnimation(enter: boolean) {
@@ -200,7 +345,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   cancelDifficultySelection() {
     this.difficultyConfig.focus = false;
     this.speedConfig.focus = true;
-    this.resetSpeed = true;
+    this.dialogsReset.speed = true;
     this.dialogsVisible.difficulty = false;
   }
 
@@ -239,11 +384,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     }); 
   }
 
-  manageConfirmation(answer: DialogOption) {
-    if (Number(answer.value)) {
+  manageConfirmation(option: DialogOption | undefined) {
+    if (option && Number(option.value)) {
       MUSICS.yourNamePlease.pause();
       MUSICS.nowLetsGo.play();
-      this.gridConfig.focus = false;
+      this.confirmGridConfig.focus = false;
       Save.saveNewGame(this.menuConfig);
       setTimeout(() => {
         this.overlay = true;

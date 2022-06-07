@@ -16,6 +16,20 @@
       "newGame": "Start New Game",
       "speed": "Text"
     },
+    "continue": {
+      "continue": "Continue",
+      "copy": "Copy",
+      "delete": "Delete",
+      "setup": "Set Up"
+    },
+    "copy": {
+      "title": "Copy to where?"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete?",
+      "no": "No",
+      "yes": "Yes"
+    },
     "speed": {
       "fast": "Fast",
       "medium": "Medium",

@@ -45,11 +45,13 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
       switch ((event as KeyboardEvent).code) {
         case 'ArrowUp':
         case 'KeyW':
+          SOUNDS.cursorVertical.currentTime = 0;
           SOUNDS.cursorVertical.play();
           this.manageHoverOption(true);
           break;
         case 'ArrowDown':
         case 'KeyS':
+          SOUNDS.cursorVertical.currentTime = 0;
           SOUNDS.cursorVertical.play();
           this.manageHoverOption(false);
           break;
@@ -57,17 +59,20 @@ export class SelectionDialogComponent implements OnInit, OnChanges, OnDestroy {
         case 'ArrowLeft':
         case 'KeyD':
         case 'KeyA':
+          SOUNDS.back.currentTime = 0;
           SOUNDS.back.play();
           break;
         case 'Enter':
         case 'Space':
         case 'KeyZ':
+          SOUNDS.accept.currentTime = 0;
           SOUNDS.accept.play();
           this.selectOption();
           break;
         case 'Escape':
         case 'Backspace':
         case 'KeyX':
+          SOUNDS.back.currentTime = 0;
           SOUNDS.back.play();
           this.cancel();
       }

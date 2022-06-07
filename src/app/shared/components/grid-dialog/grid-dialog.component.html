@@ -2,11 +2,11 @@
   <div class="grid-dialog-row" *ngFor="let row of config.rows; let i = index">
     <span class="grid-dialog-row-description" *ngIf="row.text">{{row.text}}</span>
     <div class="grid-dialog-row-options" [ngClass]="{'no-description': !row.text}">
-      <div class="grid-dialog-row-options-option" *ngFor="let option of row.options; let j = index">
+      <div class="grid-dialog-row-options-option" [ngClass]="{even: config.evenOptions}" *ngFor="let option of row.options; let j = index">
         <div class="grid-dialog-row-options-option-cursor">
           <img class="grid-dialog-row-options-option-cursor-image" *ngIf="hoverIndex === '' + i + j && !optionSelected" src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png">
         </div>
-        <span class="grid-dialog-row-options-option-text">{{option.text}}</span>
+        <span class="grid-dialog-row-options-option-text" [ngClass]="{selected: optionSelected === '' + i + j}">{{option.text}}</span>
       </div>
     </div>
   </div>

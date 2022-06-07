@@ -16,6 +16,20 @@
       "newGame": "Comenzar Nueva Partida",
       "speed": "Texto"
     },
+    "continue": {
+      "continue": "Continuar",
+      "copy": "Copiar",
+      "delete": "Borrar",
+      "setup": "Configurar"
+    },
+    "copy": {
+      "title": "Copiar a donde?"
+    },
+    "delete": {
+      "title": "Estas seguro de querer borrarlo?",
+      "no": "No",
+      "yes": "Si"
+    },
     "speed": {
       "fast": "Rapida",
       "medium": "Media",

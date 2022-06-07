@@ -88,4 +88,22 @@ export class Save {
     }
     return slots;
   }
+
+  static copySlot(from: number, to: number) {
+    Save.loadGame(from);
+    Save.save.id = to;
+    Save.saveGame();
+    Save.save.id = from;
+  }
+
+  static deleteSlot(slotId: number) {
+    localStorage.removeItem('slot' + slotId);
+  }
+
+  static setupSlot(menuConfig: MenuConfig) {
+    Save.loadGame(Number(menuConfig.load.value));
+    Save.save.speed = menuConfig.speed;
+    Save.save.difficulty = menuConfig.difficulty;
+    Save.saveGame();
+  }
 }

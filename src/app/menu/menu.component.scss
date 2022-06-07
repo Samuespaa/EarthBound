@@ -27,6 +27,19 @@
     top: 4.75rem;
     width: calc(100% - 4.75rem);
   }
+  &-continue {
+    position: absolute;
+    top: 21.3625rem;
+  }
+  &-copy {
+    position: absolute;
+    top: 37.9375rem;
+    width: 28.5rem;
+  }
+  &-delete {
+    position: absolute;
+    bottom: 7.9375rem;
+  }
   &-text-speed {
     position: absolute;
     top: 33.25rem;
@@ -104,7 +117,6 @@
     }
     &-sure {
       width: 57rem;
-      height: 9.5rem;
     }
   }
 }
