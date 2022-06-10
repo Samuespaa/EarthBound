@@ -394,7 +394,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.overlay = true;
       }, 2000);
       setTimeout(() => {
-        this.router.navigateByUrl('loading');
+        this.router.navigateByUrl('intro');
       }, 3000);
     }
     else {

@@ -1,0 +1,45 @@
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--background);
+  &-paragraph {
+    padding: 0 0 2rem 0;
+    color: var(--intro-text-color);
+    font-family: YearIs199X;
+    font-size: 8rem;
+    text-align: center;
+    opacity: 0;
+    animation-name: show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    &:nth-child(1) {
+      animation-delay: 1s;
+    }
+    &:nth-child(2) {
+      animation-delay: 5s;
+    }
+    &:nth-child(3) {
+      animation-delay: 10s;
+    }
+    &:nth-child(4) {
+      animation-delay: 17s;
+    }
+    &:nth-child(5) {
+      animation-delay: 22s;
+    }
+    &:nth-child(6) {
+      animation-delay: 27s;
+    }
+    &:nth-child(7) {
+      animation-delay: 34s;
+    }
+    &.hide {
+      animation-name: hide;
+      animation-delay: 0s;
+    }
+  }
+}

@@ -63,6 +63,7 @@
   --menu-second-tile-background: #84df94;
   --dialog-background: #290829;
   --dialog-option-selected: #9451f7;
+  --intro-text-color: #ffffde;
 }
 
 html {
@@ -104,7 +105,7 @@ body {
   }
 }
 
-@keyframes vanish {
+@keyframes hide {
   from {
     opacity: 1;
   }

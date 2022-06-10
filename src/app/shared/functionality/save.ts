@@ -25,6 +25,7 @@ export class Save {
     characters[0].inParty = true;
     const saveData: SaveSlot = new SaveSlot(Number(menuConfig.load.value), menuConfig.speed, menuConfig.difficulty, characters);
     localStorage.setItem('slot' + menuConfig.load.value, JSON.stringify(saveData));
+    Save.loadGame(Number(menuConfig.load.value));
   }
 
   static saveGame() {
@@ -32,7 +33,6 @@ export class Save {
   }
 
   static loadGame(slot: number) {
-    let saveSlot: SaveSlot;
     const localInfo: string = localStorage.getItem('slot' + slot) || '';
     if (localInfo) {
       const localObject: any = JSON.parse(localInfo);
@@ -61,8 +61,7 @@ export class Save {
         c.inParty = character._inParty;
         characters.push(c);
       }
-      saveSlot = new SaveSlot(localObject._id, speed, difficulty, characters);
-      Save.save = saveSlot;
+      Save.save = new SaveSlot(localObject._id, speed, difficulty, characters);
     }
   }
 

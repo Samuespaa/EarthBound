@@ -59,6 +59,15 @@
       "yep": "Yep"
     }
   },
+  "intro": {
+    "paragraph1": "The year is 199X",
+    "paragraph2": "The Evil Giygas plans to destroy Earth",
+    "paragraph3": "But the chosen boy, alongside their friends he didn't meet yet",
+    "paragraph4": "Is the key to stop Giygas' plan",
+    "paragraph5": "However, there isn't much time left",
+    "paragraph6": "If {{protagonistName}} don't fight Giygas in the next 48 hours",
+    "paragraph7": "This world will be condemned"
+  },
   "battle": {
 
   }

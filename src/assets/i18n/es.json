@@ -59,6 +59,15 @@
       "yep": "Sip"
     }
   },
+  "intro": {
+    "paragraph1": "Estamos en 199X",
+    "paragraph2": "El Malvado Giygas planea destruir La Tierra",
+    "paragraph3": "Pero el chico elegido, junto a sus amigos que aun no ha conocido",
+    "paragraph4": "Es la clave para detener el plan de Giygas",
+    "paragraph5": "Sin embargo, no queda mucho tiempo",
+    "paragraph6": "Si {{protagonistName}} no enfrenta a Giygas en las proximas 48 horas",
+    "paragraph7": "Este mundo estara condenado"
+  },
   "battle": {
 
   }
