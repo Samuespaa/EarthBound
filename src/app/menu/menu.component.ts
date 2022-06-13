@@ -384,8 +384,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     }); 
   }
 
-  manageConfirmation(option: DialogOption | undefined) {
-    if (option && Number(option.value)) {
+  manageConfirmation(option: DialogOption) {
+    if (Number(option.value)) {
       MUSICS.yourNamePlease.pause();
       MUSICS.nowLetsGo.play();
       this.confirmGridConfig.focus = false;

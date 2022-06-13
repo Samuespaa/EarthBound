@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="menu-summary-sure">
-      <app-grid-dialog [config]="confirmGridConfig" (selected)="manageConfirmation($event)" (canceled)="manageConfirmation($event)"></app-grid-dialog>
+      <app-grid-dialog [config]="confirmGridConfig" (selected)="manageConfirmation($event)" (canceled)="resetInputs()"></app-grid-dialog>
     </div>
   </div>
 </div>

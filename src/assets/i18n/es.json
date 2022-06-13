@@ -68,7 +68,55 @@
     "paragraph6": "Si {{protagonistName}} no enfrenta a Giygas en las proximas 48 horas",
     "paragraph7": "Este mundo estara condenado"
   },
+  "location": {
+
+  },
   "battle": {
 
+  },
+  "constants": {
+    "items": {
+      "bagOfFries": {
+        "name": "Bolsa de patatas fritas",
+        "description": "Al comerlo, recuperas sobre 24 HP"
+      },
+      "breadRoll": {
+        "name": "Panecillo",
+        "description": "Al comerlo, recuperas sobre 30 HP"
+      },
+      "canOfFruitJuice": {
+        "name": "Lata zumo de frutas",
+        "description": "Si te bebes esto, recuperas sobre 6 HP"
+      },
+      "cookie": {
+        "name": "Galleta",
+        "description": "Al comerlo, recuperas sobre 6 HP"
+      },
+      "cupOfCoffee": {
+        "name": "Taza de cafe",
+        "description": "Si te bebes esto, recuperas sobre 12 HP. Supongo que sabe bien para adultos"
+      },
+      "hamburguer": {
+        "name": "Hamburguesa",
+        "description":"When eaten, you recover about 50 HP. 100% beef"
+      }
+    },
+    "locations": {
+      "yourHome": "Tu hogar",
+      "onett": "Onett",
+      "twoson": "Twoson",
+      "threed": "Threed",
+      "fourside": "Fourside",
+      "winters": "Winters",
+      "summers": "Summers",
+      "dalaam": "Dalaam",
+      "scaraba": "Scaraba"
+    },
+    "shops": {
+      "bakery": "Panadería",
+      "burguerShop": "Hamburguesería",
+      "drugstore": "Droguería",
+      "shop": "Tienda"
+    }
   }
 }
