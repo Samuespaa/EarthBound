@@ -41,4 +41,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     Utils.calculateBackgroundSize(this.element, '.home');
     Utils.calculateTextSize();
   }
+
+  @HostListener('window:keyup') keyPressed() {
+    switch ((event as KeyboardEvent).code) {
+      case 'Enter':
+      case 'Space':
+      case 'KeyZ':
+      case 'Escape':
+      case 'Backspace':
+      case 'KeyX':
+        this.router.navigateByUrl('menu');
+    }
+  }
 }

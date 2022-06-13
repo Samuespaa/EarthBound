@@ -217,7 +217,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.overlay = true;
     Save.loadGame(slotId);
     setTimeout(() => {
-      this.router.navigateByUrl('loading');
+      this.router.navigateByUrl('location');
     }, 1000);
   }
 

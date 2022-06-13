@@ -6,13 +6,15 @@ export class Location {
   private _shops: Shop[];
   private _hasHotel: boolean;
   private _hasHospital: boolean;
+  private _music: HTMLAudioElement;
 
-  constructor(name: string, nextLocation: string, shops: Shop[], hasHotel: boolean, hasHospital: boolean) {
+  constructor(name: string, nextLocation: string, shops: Shop[], hasHotel: boolean, hasHospital: boolean, music: HTMLAudioElement) {
     this._name = name;
     this._nextLocation = nextLocation;
     this._shops = shops;
     this._hasHotel = hasHotel;
     this._hasHospital = hasHospital;
+    this._music = music;
   }
 
   public get name(): string {
@@ -53,5 +55,13 @@ export class Location {
   
   public set hasHospital(value: boolean) {
     this._hasHospital = value;
+  }
+
+  public get music(): HTMLAudioElement {
+    return this._music;
+  }
+  
+  public set music(value: HTMLAudioElement) {
+    this._music = value;
   }
 }

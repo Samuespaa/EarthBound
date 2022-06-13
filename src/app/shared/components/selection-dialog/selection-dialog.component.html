@@ -5,7 +5,7 @@
   <div class="selection-dialog-options">
     <div class="selection-dialog-options-option" *ngFor="let option of config.options; let i = index">
       <div class="selection-dialog-options-option-cursor">
-        <img class="selection-dialog-options-option-cursor-image" *ngIf="hoverIndex === i && optionSelected < 0" src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png">
+        <img class="selection-dialog-options-option-cursor-image" *ngIf="hoverIndex === i && optionSelected < 0" src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png" ondragstart="return false">
       </div>
       <span class="selection-dialog-options-option-text" [ngClass]="{selected: optionSelected === i}">{{option.text}}</span>
     </div>

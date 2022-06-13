@@ -23,6 +23,7 @@
       class="menu-character-image"
       [ngClass]="{leave: characterAnimation.direction === 'left', 'leave-no-rotate': characterAnimation.direction === 'left' && inputId > 4}"
       src="../../assets/images/menu/{{characterAnimation.name}}-walking-{{characterAnimation.direction === 'left' ? 'right' : characterAnimation.direction}}-{{characterAnimation.sprite}}.png"
+      ondragstart="return false"
     >
     <div class="menu-character-input">
       <app-input-dialog [config]="inputConfig" [focus]="inputFocus" (confirmed)="manageInputConfirmed($event)"></app-input-dialog>
@@ -35,7 +36,7 @@
     <div class="menu-summary-names">
       <div class="menu-summary-names-characters">
         <div class="menu-summary-names-characters-character" *ngFor="let character of characterOriginalNames; let i = index">
-          <img class="menu-summary-names-characters-character-image" src="../../assets/images/menu/{{character}}-walking-bottom-{{characterAnimation.sprite}}.png">
+          <img class="menu-summary-names-characters-character-image" src="../../assets/images/menu/{{character}}-walking-bottom-{{characterAnimation.sprite}}.png" ondragstart="return false">
           <div class="menu-summary-names-characters-character-dialog">
             <app-text-dialog [config]="textConfig" [text]="menuConfig.inputs[i].inputConfig.value"></app-text-dialog>
           </div>

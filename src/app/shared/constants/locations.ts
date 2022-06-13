@@ -1,9 +1,10 @@
 import { Location } from "../models/location";
 import { Shop } from "../models/shop";
 import { ITEMS } from "./items";
+import { MUSICS } from "./musics";
 
 export const LOCATIONS = [
-  new Location('constants.locations.yourHome', 'constants.locations.onett', [], false, false),
+  new Location('constants.locations.yourHome', 'constants.locations.onett', [], false, false, MUSICS.homeSweetHome),
   new Location('constants.locations.onett', 'constants.locations.twoson', [
     new Shop('constants.shops.bakery', [
       ITEMS.cookie,
@@ -15,6 +16,6 @@ export const LOCATIONS = [
       ITEMS.bagOfFries,
       ITEMS.hamburguer
     ])
-  ], true, true),
-  new Location('constants.locations.twoson', 'constants.locations.threed', [], true, true),
+  ], true, true, MUSICS.homeSweetHome),
+  new Location('constants.locations.twoson', 'constants.locations.threed', [], true, true, MUSICS.homeSweetHome),
 ];

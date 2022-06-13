@@ -12,6 +12,7 @@ import { Utils } from '../shared/functionality/utils';
 export class IntroComponent implements OnInit, OnDestroy {
   public protagonistName: string;
   public hide: boolean = false;
+  private hideTimeout: NodeJS.Timeout;
   private navigationTimeout: NodeJS.Timeout;
 
   constructor(
@@ -21,7 +22,7 @@ export class IntroComponent implements OnInit, OnDestroy {
     MUSICS.aFlashOfMemory.currentTime = 0;
     MUSICS.aFlashOfMemory.play();
     this.protagonistName = Save.save.characters[0].name;
-    setTimeout(() => {
+    this.hideTimeout = setTimeout(() => {
       this.hide = true;
     }, 42000);
     this.navigationTimeout = setTimeout(() => {
@@ -35,6 +36,7 @@ export class IntroComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this.navigationTimeout);
+    clearTimeout(this.hideTimeout);
     MUSICS.aFlashOfMemory.pause();
   }
 
@@ -51,7 +53,7 @@ export class IntroComponent implements OnInit, OnDestroy {
       case 'Escape':
       case 'Backspace':
       case 'KeyX':
-        this.router.navigateByUrl('battle');
+        this.router.navigateByUrl('location');
     }
   }
 }
