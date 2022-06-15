@@ -308,11 +308,10 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.difficultyConfig.focus = false;
     this.difficultyConfig.defaultOption = difficultySelected;
     if (this.dialogsVisible.continue) {
-      for (const property in this.dialogsVisible) {
-        this.dialogsVisible[property] = false;
-      }
       this.loadConfig.focus = true;
-      this.dialogsVisible.load = true;
+      this.dialogsVisible.continue = false;
+      this.dialogsVisible.speed = false;
+      this.dialogsVisible.difficulty = false;
       this.dialogsReset.load = true;
       Save.setupSlot(this.menuConfig);
       this.slotsInfo = Save.loadSlotsInfo();

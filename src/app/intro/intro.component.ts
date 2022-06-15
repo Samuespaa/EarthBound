@@ -26,7 +26,7 @@ export class IntroComponent implements OnInit, OnDestroy {
       this.hide = true;
     }, 42000);
     this.navigationTimeout = setTimeout(() => {
-      this.router.navigateByUrl('menu');
+      this.router.navigateByUrl('location');
     }, 43500);
   }
 

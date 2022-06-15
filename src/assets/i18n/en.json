@@ -69,7 +69,27 @@
     "paragraph7": "This world will be condemned"
   },
   "location": {
-
+    "menu": {
+      "check": {
+        "name": "Check"
+      },
+      "equip": {
+        "name": "Equip"
+      },
+      "goods": {
+        "name": "Goods"
+      },
+      "psi": {
+        "name": "PSI"
+      },
+      "status": {
+        "name": "Status"
+      },
+      "talkTo": {
+        "name": "Talk to",
+        "title": "Who do you want to talk to?"
+      }
+    }
   },
   "battle": {
 
@@ -102,15 +122,70 @@
       }
     },
     "locations": {
-      "yourHome": "Tu hogar",
-      "onett": "Onett",
-      "twoson": "Twoson",
-      "threed": "Threed",
-      "fourside": "Fourside",
-      "winters": "Winters",
-      "summers": "Summers",
-      "dalaam": "Dalaam",
-      "scaraba": "Scaraba"
+      "yourHome": {
+        "name": "Your home",
+        "npcs": {
+          "mom": {
+            "name": "Mom",
+            "texts": [
+              "{{protagonistName}}...",
+              "I don't like the idea of you going out with all these perils out there.",
+              "But not everyday one can save the world.",
+              "So to help you I put a bit of {{favoriteFood}} to take out.",
+              "And remember to call your father once in a while.",
+              "You know he is always busy but he will be for you whenever you need him."
+            ]
+          }
+        }
+      },
+      "onett": {
+        "name": "Onett",
+        "npcs": {
+          
+        }
+      },
+      "twoson": {
+        "name": "Twoson",
+        "npcs": {
+          
+        }
+      },
+      "threed": {
+        "name": "Threed",
+        "npcs": {
+          
+        }
+      },
+      "fourside": {
+        "name": "Fourside",
+        "npcs": {
+          
+        }
+      },
+      "winters": {
+        "name": "Winters",
+        "npcs": {
+          
+        }
+      },
+      "summers": {
+        "name": "Summers",
+        "npcs": {
+          
+        }
+      },
+      "dalaam": {
+        "name": "Dalaam",
+        "npcs": {
+          
+        }
+      },
+      "scaraba": {
+        "name": "Scaraba",
+        "npcs": {
+          
+        }
+      }
     },
     "shops": {
       "bakery": "Bakery",

@@ -1,7 +1,22 @@
 <div class="location">
+  <div class="location-overlay"></div>
   <img class="location-background" src="../../assets/images/location/{{backgroundImage}}.png" ondragstart="return false">
   <div class="location-content">
-    
+    <div class="location-content-menu">
+      <app-grid-dialog [config]="menuConfig" [reset]="dialogsReset.menu" (selected)="manageMenuSelected($event)"></app-grid-dialog>
+    </div>
+    <div class="location-content-money">
+      <app-text-dialog [config]="moneyConfig" [text]="money"></app-text-dialog>
+    </div>
+    <div class="location-content-place">
+      <app-text-dialog [config]="moneyConfig" [text]="place"></app-text-dialog>
+    </div>
+    <div class="location-content-talk" *ngIf="dialogsVisible.talk">
+      <app-selection-dialog [config]="talkConfig" (selected)="manageTalkSelected($event)" (canceled)="cancelTalkSelection()"></app-selection-dialog>
+    </div>
+    <div class="location-content-conversation" *ngIf="dialogsVisible.conversation">
+      <app-text-dialog [config]="talkTextConfig" [text]="conversationText" (finished)="manageConversationFinished()"></app-text-dialog>
+    </div>
   </div>
 </div>
   

@@ -10,7 +10,8 @@ export class TextConfig {
     instant: boolean = false,
     auto: boolean = false,
     autoTime: number = 1000,
-    paragraphSymbol: boolean = true) {
+    paragraphSymbol: boolean = true
+  ) {
     this._sound = sound;
     this._instant = instant;
     this._auto = auto;

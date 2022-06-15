@@ -1,16 +1,19 @@
+import { NPCTranslate } from "./npc-translate";
 import { Shop } from "./shop";
 
 export class Location {
   private _name: string;
   private _nextLocation: string;
+  private _npcs: NPCTranslate[];
   private _shops: Shop[];
   private _hasHotel: boolean;
   private _hasHospital: boolean;
   private _music: HTMLAudioElement;
 
-  constructor(name: string, nextLocation: string, shops: Shop[], hasHotel: boolean, hasHospital: boolean, music: HTMLAudioElement) {
+  constructor(name: string, nextLocation: string, npcs: NPCTranslate[], shops: Shop[], hasHotel: boolean, hasHospital: boolean, music: HTMLAudioElement) {
     this._name = name;
     this._nextLocation = nextLocation;
+    this._npcs = npcs;
     this._shops = shops;
     this._hasHotel = hasHotel;
     this._hasHospital = hasHospital;
@@ -31,6 +34,14 @@ export class Location {
 
   public set nextLocation(value: string) {
     this._nextLocation = value;
+  }
+
+  public get npcs(): NPCTranslate[] {
+    return this._npcs;
+  }
+  
+  public set npcs(value: NPCTranslate[]) {
+    this._npcs = value;
   }
 
   public get shops(): Shop[] {

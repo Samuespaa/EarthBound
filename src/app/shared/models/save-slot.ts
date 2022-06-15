@@ -7,15 +7,21 @@ export class SaveSlot {
   private _id: number;
   private _speed: DialogOption;
   private _difficulty: DialogOption;
+  private _favoriteFood: string;
+  private _coolestThing: string;
   private _characters: Character[];
   private _location: Location;
+  private _money: number;
 
-  constructor(id: number, speed: DialogOption, difficulty: DialogOption, characters: Character[]) {
+  constructor(id: number, speed: DialogOption, difficulty: DialogOption, favoriteFood: string, coolestThing: string, characters: Character[]) {
     this._id = id;
     this._speed = speed;
     this._difficulty = difficulty;
+    this._favoriteFood = favoriteFood;
+    this._coolestThing = coolestThing;
     this._characters = characters;
     this._location = LOCATIONS[0];
+    this._money = 20;
   }
 
   public get id(): number {
@@ -42,6 +48,22 @@ export class SaveSlot {
     this._difficulty = value;
   }
 
+  public get favoriteFood(): string {
+    return this._favoriteFood;
+  }
+  
+  public set favoriteFood(value: string) {
+    this._favoriteFood = value;
+  }
+
+  public get coolestThing(): string {
+    return this._coolestThing;
+  }
+  
+  public set coolestThing(value: string) {
+    this._coolestThing = value;
+  }
+
   public get characters(): Character[] {
     return this._characters;
   }
@@ -56,5 +78,13 @@ export class SaveSlot {
 
   public set location(value: Location) {
     this._location = value;
+  }
+
+  public get money(): number {
+    return this._money;
+  }
+  
+  public set money(value: number) {
+    this._money = value;
   }
 }

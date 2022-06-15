@@ -23,7 +23,7 @@ export class Save {
       characters.push(new Character(menuConfig.inputs[i].inputConfig.value));
     }
     characters[0].inParty = true;
-    const saveData: SaveSlot = new SaveSlot(Number(menuConfig.load.value), menuConfig.speed, menuConfig.difficulty, characters);
+    const saveData: SaveSlot = new SaveSlot(Number(menuConfig.load.value), menuConfig.speed, menuConfig.difficulty, menuConfig.inputs[4].inputConfig.value, menuConfig.inputs[5].inputConfig.value, characters);
     localStorage.setItem('slot' + menuConfig.load.value, JSON.stringify(saveData));
     Save.loadGame(Number(menuConfig.load.value));
   }
@@ -61,7 +61,7 @@ export class Save {
         c.inParty = character._inParty;
         characters.push(c);
       }
-      Save.save = new SaveSlot(localObject._id, speed, difficulty, characters);
+      Save.save = new SaveSlot(localObject._id, speed, difficulty, localObject._favoriteFood, localObject._coolestThing, characters);
     }
   }
 
