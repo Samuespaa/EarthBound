@@ -1,3 +1,4 @@
+import { Howl } from "howler";
 import { NPCTranslate } from "./npc-translate";
 import { Shop } from "./shop";
 
@@ -8,9 +9,9 @@ export class Location {
   private _shops: Shop[];
   private _hasHotel: boolean;
   private _hasHospital: boolean;
-  private _music: HTMLAudioElement;
+  private _music: Howl;
 
-  constructor(name: string, nextLocation: string, npcs: NPCTranslate[], shops: Shop[], hasHotel: boolean, hasHospital: boolean, music: HTMLAudioElement) {
+  constructor(name: string, nextLocation: string, npcs: NPCTranslate[], shops: Shop[], hasHotel: boolean, hasHospital: boolean, music: Howl) {
     this._name = name;
     this._nextLocation = nextLocation;
     this._npcs = npcs;
@@ -68,11 +69,11 @@ export class Location {
     this._hasHospital = value;
   }
 
-  public get music(): HTMLAudioElement {
+  public get music(): Howl {
     return this._music;
   }
   
-  public set music(value: HTMLAudioElement) {
+  public set music(value: Howl) {
     this._music = value;
   }
 }

@@ -42,9 +42,8 @@ export class LocationComponent implements OnInit, OnDestroy {
     if (!this.save) {
       this.router.navigateByUrl('menu');
     }
-    this.save.location.music.loop = true;
-    this.save.location.music.currentTime = 0;
-    this.save.location.music.play();
+    this.save.location.music.on('end', () => {this.save.location.music.play('repeat'); this.save.location.music.off('end')});
+    this.save.location.music.play('start');
     this.backgroundImage = this.save.location.name.split('.')[2];
     this.translate.get(['location.menu.talkTo.name', 'location.menu.goods.name', 'location.menu.psi.name', 'location.menu.equip.name', 'location.menu.check.name', 'location.menu.status.name']).subscribe(translations => {
       const options: DialogOption[] = [
@@ -86,7 +85,7 @@ export class LocationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.save.location.music.pause();
+    this.save.location.music.stop();
   }
 
   @HostListener('window:resize') calculateSizes() {

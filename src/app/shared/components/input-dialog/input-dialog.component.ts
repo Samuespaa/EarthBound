@@ -48,11 +48,9 @@ export class InputDialogComponent implements OnInit, OnChanges {
   checkKey() {
     const code = (event as KeyboardEvent).code;
     if (code === 'Backspace') {
-      SOUNDS.deleteLetter.currentTime = 0;
       SOUNDS.deleteLetter.play();
     }
     else if (code.startsWith('Key') || code.startsWith('Digit')) {
-      SOUNDS.insertLetter.currentTime = 0;
       SOUNDS.insertLetter.play();
     }
     this.getFocus(code !== 'Enter');

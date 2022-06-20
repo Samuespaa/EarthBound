@@ -80,7 +80,6 @@ export class TextDialogComponent implements OnInit, OnChanges, OnDestroy {
   letterByLetter(newText: string) {
     this.texts[this.texts.length] = '';
     if (this.config.sound) {
-      SOUNDS.text.loop = true;
       SOUNDS.text.play();
     }
     for (let i = 0; i < newText.length; i++) {

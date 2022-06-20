@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router
   ) {
-    MUSICS.titleScreen.currentTime = 0;
     MUSICS.titleScreen.play();
     this.logoTimeout = setTimeout(() => {
       this.hideLetters = true;
@@ -34,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.logoTimeout);
     clearTimeout(this.navigationTimeout);
-    MUSICS.titleScreen.pause();
+    MUSICS.titleScreen.stop();
   }
 
   @HostListener('window:resize') calculateSizes() {

@@ -48,9 +48,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private router: Router
   ) {
-    MUSICS.chooseAFile.loop = true;
-    MUSICS.chooseAFile.currentTime = 0;
-    MUSICS.chooseAFile.play();
+    MUSICS.chooseAFile.on('end', () => {MUSICS.chooseAFile.play('repeat'); MUSICS.chooseAFile.off('end')});
+    MUSICS.chooseAFile.play('start');
     this.slotsInfo = Save.loadSlotsInfo();
     this.setLoadOptions();
     this.translate.get(['menu.continue.continue', 'menu.continue.copy', 'menu.continue.delete', 'menu.continue.setup']).subscribe(translations => {
@@ -125,9 +124,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    MUSICS.chooseAFile.pause();
-    MUSICS.yourNamePlease.pause();
-    MUSICS.nowLetsGo.pause();
+    MUSICS.chooseAFile.stop();
+    MUSICS.yourNamePlease.stop();
+    MUSICS.nowLetsGo.stop();
     clearInterval(this.characterSpriteInterval);
   }
 
@@ -318,8 +317,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.setLoadOptions();
     }
     else {
-      MUSICS.chooseAFile.pause();
-      MUSICS.yourNamePlease.loop = true;
+      MUSICS.chooseAFile.stop();
       MUSICS.yourNamePlease.play();
       for (const property in this.dialogsVisible) {
         this.dialogsVisible[property] = false;
@@ -385,7 +383,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   manageConfirmation(option: DialogOption) {
     if (Number(option.value)) {
-      MUSICS.yourNamePlease.pause();
+      MUSICS.yourNamePlease.stop();
       MUSICS.nowLetsGo.play();
       this.confirmGridConfig.focus = false;
       Save.saveNewGame(this.menuConfig);

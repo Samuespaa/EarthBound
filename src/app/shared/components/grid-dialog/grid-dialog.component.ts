@@ -46,39 +46,33 @@ export class GridDialogComponent implements OnInit, OnChanges, OnDestroy{
       switch ((event as KeyboardEvent).code) {
         case 'ArrowUp':
         case 'KeyW':
-          SOUNDS.cursorVertical.currentTime = 0;
           SOUNDS.cursorVertical.play();
           this.manageHoverOption('up');
           break;
         case 'ArrowDown':
         case 'KeyS':
-          SOUNDS.cursorVertical.currentTime = 0;
           SOUNDS.cursorVertical.play();
           this.manageHoverOption('down');
           break;
         case 'ArrowRight':
         case 'KeyD':
-          SOUNDS.back.currentTime = 0;
           SOUNDS.back.play();
           this.manageHoverOption('right');
           break;
         case 'ArrowLeft':
         case 'KeyA':
-          SOUNDS.back.currentTime = 0;
           SOUNDS.back.play();
           this.manageHoverOption('left');
           break;
         case 'Enter':
         case 'Space':
         case 'KeyZ':
-          SOUNDS.accept.currentTime = 0;
           SOUNDS.accept.play();
           this.selectOption();
           break;
         case 'Escape':
         case 'Backspace':
         case 'KeyX':
-          SOUNDS.back.currentTime = 0;
           SOUNDS.back.play();
           this.cancel();
       }

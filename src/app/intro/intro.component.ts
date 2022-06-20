@@ -19,7 +19,6 @@ export class IntroComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router
   ) {
-    MUSICS.aFlashOfMemory.currentTime = 0;
     MUSICS.aFlashOfMemory.play();
     this.protagonistName = Save.save.characters[0].name;
     this.hideTimeout = setTimeout(() => {
@@ -37,7 +36,7 @@ export class IntroComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.navigationTimeout);
     clearTimeout(this.hideTimeout);
-    MUSICS.aFlashOfMemory.pause();
+    MUSICS.aFlashOfMemory.stop();
   }
 
   @HostListener('window:resize') calculateSizes() {
