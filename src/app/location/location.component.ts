@@ -6,6 +6,7 @@ import { Utils } from '../shared/functionality/utils';
 import { DialogOption } from '../shared/models/dialog-option';
 import { GridDialogConfig } from '../shared/models/grid-dialog-config';
 import { GridDialogRow } from '../shared/models/grid-dialog-row';
+import { InventoryDialogConfig } from '../shared/models/inventory-dialog-config';
 import { NPC } from '../shared/models/npc';
 import { SaveSlot } from '../shared/models/save-slot';
 import { SelectionDialogConfig } from '../shared/models/selection-dialog-config';
@@ -26,6 +27,7 @@ export class LocationComponent implements OnInit, OnDestroy {
   public talkConfig: SelectionDialogConfig = new SelectionDialogConfig();
   public talkTextConfig: TextConfig = new TextConfig(true, false, false, 0, true);
   public conversationText: string = '';
+  public goodsConfig: InventoryDialogConfig = new InventoryDialogConfig();
   private npcs: NPC[] = [];
   private npcSelected: NPC | undefined = undefined;
   private npcTextIndex: number = 0;
@@ -59,6 +61,7 @@ export class LocationComponent implements OnInit, OnDestroy {
         new DialogOption('status', translations['location.menu.status.name']),
       ];
       this.menuConfig.rows = [new GridDialogRow(options), new GridDialogRow(options2), new GridDialogRow(options3)];
+      this.menuConfig.type = 'menu';
     });
     this.money = `$${this.save.money.toString()}&`;
     this.translate.get(this.save.location.name).subscribe(translation => {
@@ -71,12 +74,14 @@ export class LocationComponent implements OnInit, OnDestroy {
         this.npcs.push(new NPC(translations[npc.name], translations[npc.texts]));
       });
     });
+    this.goodsConfig.characters = this.save.characters.filter(character => character.inParty);
     this.dialogsReset = {
       menu: false
     };
     this.dialogsVisible = {
       talk: false,
-      conversation: false
+      conversation: false,
+      goods: false
     }
   }
 
@@ -101,7 +106,7 @@ export class LocationComponent implements OnInit, OnDestroy {
         this.talkMenu();
         break;
       case 'goods':
-
+        this.goodsMenu();
         break;
       case 'psi':
 
@@ -152,5 +157,16 @@ export class LocationComponent implements OnInit, OnDestroy {
     text = text.replace('{{protagonistName}}', this.save.characters[0].name);
     text = text.replace('{{favoriteFood}}', this.save.favoriteFood);
     return text;
+  }
+
+  goodsMenu() {
+    this.goodsConfig.focus = true;
+    this.dialogsVisible.goods = true;
+  }
+
+  cancelGoodsSelection() {
+    this.menuConfig.focus = true;
+    this.dialogsReset.menu = true;
+    this.dialogsVisible.goods = false;
   }
 }

@@ -97,7 +97,7 @@
   "constants": {
     "items": {
       "bagOfFries": {
-        "name": "Bolsa de patatas fritas",
+        "name": "Bolsa de patatas",
         "description": "Al comerlo, recuperas sobre 24 HP"
       },
       "breadRoll": {
@@ -105,7 +105,7 @@
         "description": "Al comerlo, recuperas sobre 30 HP"
       },
       "canOfFruitJuice": {
-        "name": "Lata zumo de frutas",
+        "name": "Lata de zumo",
         "description": "Si te bebes esto, recuperas sobre 6 HP"
       },
       "cookie": {

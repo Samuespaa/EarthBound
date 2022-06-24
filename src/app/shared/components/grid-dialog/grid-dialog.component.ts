@@ -67,7 +67,7 @@ export class GridDialogComponent implements OnInit, OnChanges, OnDestroy{
         case 'Enter':
         case 'Space':
         case 'KeyZ':
-          SOUNDS.accept.play();
+          this.config.type === 'menu' ? SOUNDS.window.play() : SOUNDS.accept.play();
           this.selectOption();
           break;
         case 'Escape':

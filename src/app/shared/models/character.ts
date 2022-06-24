@@ -1,3 +1,4 @@
+import { Item } from "./item";
 import { Stats } from "./stats";
 
 export class Character {
@@ -7,7 +8,7 @@ export class Character {
   private _exp: number = 0;
   private _toNextLevel: number = 4;
   //private _psi: Psi[] = [];
-  //private _items: Item[] = [];
+  private _items: Item[] = [];
   private _inParty: boolean = false;
 
   constructor(name: string) {
@@ -52,6 +53,14 @@ export class Character {
 
   public set toNextLevel(value: number) {
     this._toNextLevel = value;
+  }
+
+  public get items(): Item[] {
+    return this._items;
+  }
+  
+  public set items(value: Item[]) {
+    this._items = value;
   }
 
   public get inParty(): boolean {

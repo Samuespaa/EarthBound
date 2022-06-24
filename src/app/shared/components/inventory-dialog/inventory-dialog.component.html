@@ -1,0 +1,27 @@
+<div class="inventory-dialog">
+  <div class="inventory-dialog-name">
+    <span class="inventory-dialog-name-text">{{config.characters[characterIndex].name}}</span>
+  </div>
+  <div class="inventory-dialog-arrows" *ngIf="!characterSelected">
+    <img class="inventory-dialog-arrows-arrow" src="../../../../assets/images/interface/arrow-left-{{cursorSprite}}.png">
+    <img class="inventory-dialog-arrows-arrow" src="../../../../assets/images/interface/arrow-right-{{cursorSprite}}.png">
+  </div>
+  <div class="inventory-dialog-row" *ngFor="let row of rows; let i = index">
+    <div class="inventory-dialog-row-options">
+      <div class="inventory-dialog-row-options-option" *ngFor="let option of row.options; let j = index">
+        <div class="inventory-dialog-row-options-option-cursor">
+          <img
+            class="inventory-dialog-row-options-option-cursor-image"
+            *ngIf="hoverIndex === '' + i + j && !optionSelected && characterSelected"
+            src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png"
+            ondragstart="return false"
+          >
+        </div>
+        <div class="inventory-dialog-row-options-option-item" src="../../../../assets/images/interface/equipped-icon.png" ondragstart="return false">
+          <img class="inventory-dialog-row-options-option-item-equipped">
+          <span class="inventory-dialog-row-options-option-item-text">{{option.name | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

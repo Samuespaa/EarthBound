@@ -10,9 +10,9 @@ import { LoadingComponent } from './loading/loading.component';
 import { HomeComponent } from './home/home.component';
 import { IntroComponent } from './intro/intro.component';
 import { MenuComponent } from './menu/menu.component';
+import { LocationComponent } from './location/location.component';
 import { BattleComponent } from './battle/battle.component';
 import { SharedModule } from './shared/shared.module';
-import { LocationComponent } from './location/location.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -25,8 +25,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     MenuComponent,
     IntroComponent,
-    BattleComponent,
-    LocationComponent
+    LocationComponent,
+    BattleComponent
   ],
   imports: [
     BrowserModule,

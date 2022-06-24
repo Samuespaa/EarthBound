@@ -97,7 +97,7 @@
   "constants": {
     "items": {
       "bagOfFries": {
-        "name": "Bolsa de patatas fritas",
+        "name": "Bag of fries",
         "description": "When eaten, you recover about 24 HP"
       },
       "breadRoll": {
