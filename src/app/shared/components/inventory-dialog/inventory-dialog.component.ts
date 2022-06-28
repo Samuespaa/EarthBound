@@ -1,26 +1,47 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ITEMS } from '../../constants/items';
 import { SOUNDS } from '../../constants/sounds';
+import { DialogOption } from '../../models/dialog-option';
 import { InventoryDialogConfig } from '../../models/inventory-dialog-config';
 import { InventoryDialogRow } from '../../models/inventory-dialog-row';
+import { Item } from '../../models/item';
+import { SelectionDialogConfig } from '../../models/selection-dialog-config';
+import { TextConfig } from '../../models/text-config';
 
 @Component({
   selector: 'app-inventory-dialog',
   templateUrl: './inventory-dialog.component.html',
   styleUrls: ['./inventory-dialog.component.scss']
 })
-export class InventoryDialogComponent implements OnInit, OnChanges, OnDestroy {
+export class InventoryDialogComponent implements OnInit, OnDestroy {
   @Input() public config: InventoryDialogConfig = new InventoryDialogConfig();
-  @Input() public reset: boolean = false;
   @Output() private canceled: EventEmitter<undefined> = new EventEmitter<undefined>();
+  public actionsConfig: SelectionDialogConfig = new SelectionDialogConfig();
+  public resetActions: boolean = false;
   public rows: InventoryDialogRow[] = [];
   public characterIndex: number = 0;
   public characterSelected: boolean = false;
   public hoverIndex: string = '00';
-  public optionSelected: string = '';
+  public questionConfig: TextConfig = new TextConfig(false, true, true, 0, false);
+  public itemHelpConfig: TextConfig = new TextConfig(true, false, false, 0, true);
+  public itemSelected: Item | undefined = undefined;
+  public itemDropText: string = '';
+  public itemHelpText: string = '';
+  public itemHelpTextIndex: number = -1;
   public cursorSprite: number = 1;
   private cursorInterval: NodeJS.Timeout;
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+    this.translate.get(['location.menu.goods.use', 'location.menu.goods.give', 'location.menu.goods.drop', 'location.menu.goods.help']).subscribe(translations => {
+      const options: DialogOption[] = [
+        new DialogOption('use', translations['location.menu.goods.use']),
+        new DialogOption('give', translations['location.menu.goods.give']),
+        new DialogOption('drop', translations['location.menu.goods.drop']),
+        new DialogOption('help', translations['location.menu.goods.help'])
+      ];
+      this.actionsConfig.options = options;
+    });
     this.cursorInterval = setInterval(() => {
       this.changeCursorSprite();
     }, 166);
@@ -30,15 +51,9 @@ export class InventoryDialogComponent implements OnInit, OnChanges, OnDestroy {
     if (this.config.characters.length === 1) {
       this.characterSelected = true;
     }
+    this.config.characters[0].items.push(ITEMS.bagOfFries, ITEMS.cookie, ITEMS.hamburguer);
+    // this.config.characters[1].items.push(ITEMS.bagOfFries, ITEMS.breadRoll, ITEMS.cookie, ITEMS.hamburguer);
     this.createRows(this.characterIndex);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    for (const property in changes) {
-      if (property === 'reset' && changes[property].currentValue) {
-        this.resetDialog();
-      }
-    }
   }
 
   ngOnDestroy(): void {
@@ -144,10 +159,6 @@ export class InventoryDialogComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  resetDialog() {
-    this.optionSelected = '';
-  }
-
   manageHoverOption(direction: 'up' | 'right' | 'down' | 'left') {
     if (this.rows.length) {
       const indexArray = this.hoverIndex.split('').map(i => Number(i));
@@ -196,7 +207,68 @@ export class InventoryDialogComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectItem() {
-    
+    if (this.config.characters[this.characterIndex].items.length) {
+      this.config.focus = false;
+      this.itemSelected = this.rows[Number(this.hoverIndex[0])].options[Number(this.hoverIndex[1])];
+    }
+  }
+
+  manageActionSelected(option: DialogOption) {
+    this.actionsConfig.focus = false;
+    this.resetActions = false;
+    switch (option.value) {
+      case 'use':
+
+        break;
+      case 'give':
+
+        break;
+      case 'drop':
+        this.itemDrop();
+        break;
+      case 'help':
+        this.itemHelp();
+    }
+  }
+
+  itemDrop() {
+    if (this.itemSelected) {
+      if (!this.itemDropText) {
+        this.itemDropText = `${this.config.characters[this.characterIndex].name} ${this.translate.instant('location.menu.goods.dropMessage')} ${this.translate.instant(this.itemSelected.name)}.`;
+      }
+      else {
+        this.config.characters[this.characterIndex].items.splice(Number(this.hoverIndex[0]) * 2 + Number(this.hoverIndex[1]), 1);
+        this.createRows(this.characterIndex);
+        this.actionsConfig.focus = true;
+        this.hoverIndex = '00';
+        this.itemDropText = '';
+        this.cancelActionSelection();
+      }
+    }
+  }
+
+  itemHelp() {
+    if (this.itemSelected) {
+      const translation = this.translate.instant(this.itemSelected.description)
+      if (this.itemHelpTextIndex === -1) {
+        this.itemHelpText = `<${this.translate.instant(this.itemSelected.name)}>`;
+        this.itemHelpTextIndex++;
+      }
+      else if (this.itemHelpTextIndex < translation.length) {
+        this.itemHelpText = translation[this.itemHelpTextIndex++];
+      }
+      else {
+        this.actionsConfig.focus = true;
+        this.resetActions = true;
+        this.itemHelpText = '';
+        this.itemHelpTextIndex = -1;
+      }
+    }
+  }
+
+  cancelActionSelection() {
+    this.config.focus = true;
+    this.itemSelected = undefined;
   }
 
   cancel() {

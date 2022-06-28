@@ -6,19 +6,34 @@
     <img class="inventory-dialog-arrows-arrow" src="../../../../assets/images/interface/arrow-left-{{cursorSprite}}.png">
     <img class="inventory-dialog-arrows-arrow" src="../../../../assets/images/interface/arrow-right-{{cursorSprite}}.png">
   </div>
+  <div class="inventory-dialog-who" *ngIf="!characterSelected">
+    <app-text-dialog [config]="questionConfig" text="{{'location.menu.goods.who' | translate}}"></app-text-dialog>
+  </div>
+  <div class="inventory-dialog-which" *ngIf="characterSelected && !config.battleInterface">
+    <app-text-dialog [config]="questionConfig" text="{{'location.menu.goods.which' | translate}}"></app-text-dialog>
+  </div>
+  <div class="inventory-dialog-actions" *ngIf="itemSelected">
+    <app-selection-dialog [config]="actionsConfig" [reset]="resetActions" (selected)="manageActionSelected($event)" (canceled)="cancelActionSelection()"></app-selection-dialog>
+  </div>
+  <div class="inventory-dialog-drop" *ngIf="itemSelected && itemDropText">
+    <app-text-dialog [config]="itemHelpConfig" [text]="itemDropText" (finished)="itemDrop()"></app-text-dialog>
+  </div>
+  <div class="inventory-dialog-help" *ngIf="itemSelected && itemHelpText">
+    <app-text-dialog [config]="itemHelpConfig" [text]="itemHelpText" (finished)="itemHelp()"></app-text-dialog>
+  </div>
   <div class="inventory-dialog-row" *ngFor="let row of rows; let i = index">
     <div class="inventory-dialog-row-options">
       <div class="inventory-dialog-row-options-option" *ngFor="let option of row.options; let j = index">
         <div class="inventory-dialog-row-options-option-cursor">
           <img
             class="inventory-dialog-row-options-option-cursor-image"
-            *ngIf="hoverIndex === '' + i + j && !optionSelected && characterSelected"
+            *ngIf="hoverIndex === '' + i + j && !itemSelected && characterSelected"
             src="../../../../assets/images/interface/cursor-right-{{cursorSprite}}.png"
             ondragstart="return false"
           >
         </div>
         <div class="inventory-dialog-row-options-option-item" src="../../../../assets/images/interface/equipped-icon.png" ondragstart="return false">
-          <img class="inventory-dialog-row-options-option-item-equipped">
+          <!-- <img class="inventory-dialog-row-options-option-item-equipped" src="../../../../assets/images/interface/equipped.png"> -->
           <span class="inventory-dialog-row-options-option-item-text">{{option.name | translate}}</span>
         </div>
       </div>

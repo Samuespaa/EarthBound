@@ -77,7 +77,14 @@
         "name": "Equip"
       },
       "goods": {
-        "name": "Goods"
+        "drop": "Drop",
+        "dropMessage": "got rid of the",
+        "give": "Give",
+        "help": "Help!",
+        "name": "Goods",
+        "use": "Use",
+        "which": "Which",
+        "who": "Who"
       },
       "psi": {
         "name": "PSI"
@@ -98,27 +105,27 @@
     "items": {
       "bagOfFries": {
         "name": "Bag of fries",
-        "description": "When eaten, you recover about 24 HP"
+        "description": ["When eaten, you recover about 24 HP."]
       },
       "breadRoll": {
         "name": "Bread roll",
-        "description": "When eaten, you recover about 30 HP"
+        "description": ["When eaten, you recover about 30 HP."]
       },
       "canOfFruitJuice": {
         "name": "Can of fruit juice",
-        "description": "If you drink this, you recover about 6 HP"
+        "description": ["If you drink this, you recover about 6 HP."]
       },
       "cookie": {
         "name": "Cookie",
-        "description": "When eaten, you recover about 6 HP"
+        "description": ["When eaten, you recover about 6 HP."]
       },
       "cupOfCoffee": {
         "name": "Cup of coffee",
-        "description": "If you drink this, you recover about 12 HP. I guess it tastes good to adults"
+        "description": ["If you drink this, you recover about 12 HP.", "I guess it tastes good to adults."]
       },
       "hamburguer": {
         "name": "Hamburguer",
-        "description":"When eaten, you recover about 50 HP. 100% beef"
+        "description": ["When eaten, you recover about 50 HP.", "100% beef."]
       }
     },
     "locations": {
